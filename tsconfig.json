@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "declaration": true,
+    "baseUrl": ".",
+    "resolveJsonModule": true,
+    "strict": true,
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+  },
+}

@@ -1,0 +1,20 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "lib": [
+      "es2022",
+      "DOM"
+    ],
+    "sourceMap": true,
+    "declaration": true,
+    "removeComments": true,
+  },
+  "include": [
+    "lib/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
