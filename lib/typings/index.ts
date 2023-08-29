@@ -27,26 +27,37 @@ export type SpotifyImage = {
 	width: number;
 };
 
-export type SpotifyAlbum = {
+export type SpotifyAlbumBase = {
 	album_type: string;
 	artists: Array<SpotifyAlbumArtist>;
-	available_markets: Array<string>;
-	copyrights: Array<SpotifyCopyright>;
-	external_ids: SpotifyExternalIDs;
 	external_urls: SpotifyExternalURLs;
-	genres: Array<string>;
 	href: string;
 	id: string;
 	images: Array<SpotifyImage>;
-	label: string;
 	name: string;
-	popularity: number;
 	release_date: string;
 	release_date_precision: string;
 	total_tracks: number;
-	tracks: SpotifyTrack;
 	type: string;
 	uri: string;
+};
+
+export type SpotifyRelease = {
+	albums: SpotifyResultWithItems<
+		SpotifyAlbumBase & {
+			available_markets: Array<string>;
+		}
+	>;
+};
+
+export type SpotifyAlbum = SpotifyAlbumBase & {
+	available_markets: Array<string>;
+	copyrights: Array<SpotifyCopyright>;
+	external_ids: SpotifyExternalIDs;
+	genres: Array<string>;
+	label: string;
+	popularity: number;
+	tracks: SpotifyTrack;
 };
 
 export type SpotifyTrack = SpotifyResultWithItems<SpotifyTrackItem>;
@@ -67,24 +78,6 @@ export type SpotifyTrackItem = {
 	track_number: number;
 	type: string;
 	uri: string;
-};
-
-export type SpotifyRelease = {
-	albums: SpotifyResultWithItems<{
-		album_type: string;
-		artists: Array<SpotifyAlbumArtist>;
-		available_markets: Array<string>;
-		external_urls: SpotifyExternalURLs;
-		href: string;
-		id: string;
-		images: Array<SpotifyImage>;
-		name: string;
-		release_date: string;
-		release_date_precision: string;
-		total_tracks: number;
-		type: string;
-		uri: string;
-	}>;
 };
 
 export type SpotifyArtist = {
