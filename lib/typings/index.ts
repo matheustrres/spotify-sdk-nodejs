@@ -60,6 +60,13 @@ export type SpotifyAlbum = SpotifyAlbumBase & {
 	tracks: SpotifyTrack;
 };
 
+export type SpotifyArtistAlbums = SpotifyResultWithItems<
+	SpotifyAlbumBase & {
+		album_group: string;
+		is_playable: boolean;
+	}
+>;
+
 export type SpotifyTrack = SpotifyResultWithItems<SpotifyTrackItem>;
 
 export type SpotifyTrackItem = {
