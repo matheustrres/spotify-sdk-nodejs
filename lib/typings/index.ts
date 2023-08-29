@@ -87,14 +87,26 @@ export type SpotifyTrackItem = {
 	uri: string;
 };
 
-export type SpotifyAlbumArtist = {
+export type SpotifyArtist = {
 	external_urls: SpotifyExternalURLs;
+	followers: {
+		href: string;
+		total: number;
+	};
+	genres: Array<string>;
 	href: string;
 	id: string;
+	images: Array<SpotifyImage>;
 	name: string;
+	popularity: number;
 	type: string;
 	uri: string;
 };
+
+export type SpotifyAlbumArtist = Omit<
+	SpotifyArtist,
+	'followers' | 'genres' | 'images' | 'popularity'
+>;
 
 export type SpotifySeveralAlbums = {
 	albums: Array<
