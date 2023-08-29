@@ -1,6 +1,7 @@
 import { generateQParams } from 'lib/utils/gen-q-params';
 
 import {
+	type SpotifyRelease,
 	type Response,
 	type SpotifyAlbum,
 	type SpotifyApiPaginationOptions,
@@ -17,6 +18,10 @@ export interface ISpotifyAlbumResource {
 		market?: string,
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Response<SpotifyTrack>>;
+	getNewReleases(
+		country?: string,
+		pagOptions?: SpotifyApiPaginationOptions,
+	): Promise<Response<SpotifyRelease>>;
 	getSeveralAlbums(
 		albumsIds: string[],
 		market?: string,
@@ -70,6 +75,20 @@ export class SpotifyAlbumResource
 			)}`;
 
 		return this.makeRequest<SpotifyTrack>(endpoint);
+	}
+
+	public async getNewReleases(
+		country: string = 'US',
+		pagOptions?: SpotifyApiPaginationOptions,
+	): Promise<Response<SpotifyRelease>> {
+		let endpoint: string = `browse/new-releases?country=${country}`;
+
+		if (pagOptions)
+			endpoint += `?${generateQParams<SpotifyApiPaginationOptions>(
+				pagOptions,
+			)}`;
+
+		return this.makeRequest<SpotifyRelease>(endpoint);
 	}
 
 	/**

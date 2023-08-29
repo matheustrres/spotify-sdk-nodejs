@@ -12,31 +12,31 @@ export type SpotifyCopyright = {
 };
 
 export type SpotifyImage = {
-	url: string;
 	height: number;
+	url: string;
 	width: number;
 };
 
 export type SpotifyAlbum = {
-	id: string;
 	album_type: string;
-	name: string;
-	popularity: number;
-	label: string;
-	release_date: string;
-	release_date_precision: string;
-	total_tracks: number;
-	type: string;
-	uri: string;
-	href: string;
 	artists: Array<SpotifyAlbumArtist>;
 	available_markets: Array<string>;
 	copyrights: Array<SpotifyCopyright>;
-	images: Array<SpotifyImage>;
-	genres: Array<string>;
 	external_ids: SpotifyExternalIDs;
 	external_urls: SpotifyExternalURLs;
+	genres: Array<string>;
+	href: string;
+	id: string;
+	images: Array<SpotifyImage>;
+	label: string;
+	name: string;
+	popularity: number;
+	release_date: string;
+	release_date_precision: string;
+	total_tracks: number;
 	tracks: SpotifyTrack;
+	type: string;
+	uri: string;
 };
 
 export type SpotifyTrack = {
@@ -49,29 +49,49 @@ export type SpotifyTrack = {
 	total: number;
 };
 
+export type SpotifyRelease = {
+	albums: Omit<SpotifyTrack, 'items'> & {
+		items: Array<{
+			album_type: string;
+			artists: Array<SpotifyAlbumArtist>;
+			available_markets: Array<string>;
+			external_urls: SpotifyExternalURLs;
+			href: string;
+			id: string;
+			images: Array<SpotifyImage>;
+			name: string;
+			release_date: string;
+			release_date_precision: string;
+			total_tracks: number;
+			type: string;
+			uri: string;
+		}>;
+	};
+};
+
 export type SpotifyTrackItem = {
-	id: string;
-	name: string;
-	href: string;
-	type: string;
-	uri: string;
+	artists: Array<SpotifyAlbumArtist>;
+	available_markets?: Array<string>;
 	disc_number: number;
 	duration_ms: number;
 	explicit: boolean;
 	external_urls: SpotifyExternalURLs;
-	artists: Array<SpotifyAlbumArtist>;
-	available_markets?: Array<string>;
-	is_playable?: boolean;
+	href: string;
+	id: string;
 	is_local: boolean;
+	is_playable?: boolean;
+	name: string;
 	preview_url: string;
 	track_number: number;
+	type: string;
+	uri: string;
 };
 
 export type SpotifyAlbumArtist = {
+	external_urls: SpotifyExternalURLs;
+	href: string;
 	id: string;
 	name: string;
-	href: string;
-	external_urls: SpotifyExternalURLs;
 	type: string;
 	uri: string;
 };
@@ -93,9 +113,9 @@ export type SpotifyApiPaginationOptions = {
 };
 
 export type SpotifyApiClientCredentials = {
-	token_type: string;
 	access_token: string;
 	expires_in: number;
+	token_type: string;
 };
 
 export type Response<T = any> =
