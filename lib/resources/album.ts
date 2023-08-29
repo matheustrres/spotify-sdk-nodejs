@@ -25,7 +25,7 @@ export interface ISpotifyAlbumResource {
 
 /**
  * Represents the Spotify Albums resource manager
- * 
+ *
  * @extends {Resource}
  * @implements {ISpotifyAlbumResource}
  */

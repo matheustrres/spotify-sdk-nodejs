@@ -29,9 +29,9 @@ export class SpotifySDK {
 		this.albumResource = new SpotifyAlbumResource(this.tokenManager);
 	}
 
-  /**
-   * The Spotify Albums resource manager
-   */
+	/**
+	 * The Spotify Albums resource manager
+	 */
 	public get album(): SpotifyAlbumResource {
 		return this.albumResource;
 	}
