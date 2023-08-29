@@ -41,27 +41,30 @@ export type SpotifyAlbum = {
 
 export type SpotifyTrack = {
 	href: string;
-	items: Array<{
-		id: string;
-		name: string;
-		href: string;
-		type: string;
-		uri: string;
-		disc_number: number;
-		duration_ms: number;
-		explicit: boolean;
-		external_urls: SpotifyExternalURLs;
-		artists: Array<SpotifyAlbumArtist>;
-		available_markets: Array<string>;
-		is_local: boolean;
-		preview_url: string;
-		track_number: number;
-	}>;
+	items: Array<SpotifyTrackItem>;
 	limit: number;
 	next: string | null;
 	offset: number;
 	previous: string | null;
 	total: number;
+};
+
+export type SpotifyTrackItem = {
+	id: string;
+	name: string;
+	href: string;
+	type: string;
+	uri: string;
+	disc_number: number;
+	duration_ms: number;
+	explicit: boolean;
+	external_urls: SpotifyExternalURLs;
+	artists: Array<SpotifyAlbumArtist>;
+	available_markets?: Array<string>;
+	is_playable?: boolean;
+	is_local: boolean;
+	preview_url: string;
+	track_number: number;
 };
 
 export type SpotifyAlbumArtist = {
@@ -80,6 +83,13 @@ export type SpotifySeveralAlbums = {
 			is_playable: boolean;
 		}
 	>;
+};
+
+// --------------------- API ---------------------
+
+export type SpotifyApiPaginationOptions = {
+	limit?: number;
+	offset?: number;
 };
 
 export type SpotifyApiClientCredentials = {

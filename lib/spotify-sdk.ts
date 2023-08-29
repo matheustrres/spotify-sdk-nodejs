@@ -2,7 +2,10 @@ import {
 	type SpotifySeveralAlbums,
 	type Response,
 	type SpotifyAlbum,
+	type SpotifyApiPaginationOptions,
+	type SpotifyTrack,
 } from './typings';
+import { generateQParams } from './utils/gen-q-params';
 import { makeGET } from './utils/request';
 import { TokenManager } from './utils/token-manager';
 
@@ -13,6 +16,11 @@ export type SpotifySDKOptions = {
 
 export interface ISpotifySDK {
 	getAlbum(albumId: string): Promise<Response<SpotifyAlbum>>;
+	getAlbumTracks(
+		albumId: string,
+		market?: string,
+		pagOptions?: SpotifyApiPaginationOptions,
+	): Promise<any>;
 	getSeveralAlbums(
 		albumsIds: string[],
 		market?: string,
@@ -49,6 +57,31 @@ export class SpotifySDK implements ISpotifySDK {
 	 */
 	public async getAlbum(albumId: string): Promise<Response<SpotifyAlbum>> {
 		return this.makeRequest<SpotifyAlbum>(`albums/${albumId}`);
+	}
+
+	/**
+	 * Get Spotify catalog information about an album’s tracks
+	 *
+	 * @param {String} albumId - The Spotify ID of the album
+	 * @param {String} [market] - An ISO-3166-1 alpha-2 country code (e.g. `US`, `BR`)
+	 * @param {SpotifyApiPaginationOptions} [pagOptions] - The pagination options for the request
+	 * @param {Number} [pagOptions.limit] - The maximum number of items to return (default is 20, min is 1, max is 50)
+	 * @param {Number} [pagOptions.offset] - The index of the first item to return (default is 0)
+	 * @returns { Promise<Response<SpotifyTrack>>}
+	 */
+	public async getAlbumTracks(
+		albumId: string,
+		market: string = 'US',
+		pagOptions?: SpotifyApiPaginationOptions,
+	): Promise<Response<SpotifyTrack>> {
+		let endpoint: string = `albums/${albumId}/tracks?market=${market}`;
+
+		if (pagOptions)
+			endpoint += `?${generateQParams<SpotifyApiPaginationOptions>(
+				pagOptions,
+			)}`;
+
+		return this.makeRequest<SpotifyTrack>(endpoint);
 	}
 
 	/**
