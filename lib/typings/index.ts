@@ -117,6 +117,10 @@ export type SpotifySeveralAlbums = {
 	>;
 };
 
+export type SpotifySeveralArtists = {
+	artists: Array<SpotifyArtist>;
+};
+
 // --------------------- API ---------------------
 
 export type SpotifyApiPaginationOptions = {
