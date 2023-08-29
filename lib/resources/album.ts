@@ -77,6 +77,15 @@ export class SpotifyAlbumResource
 		return this.makeRequest<SpotifyTrack>(endpoint);
 	}
 
+	/**
+	 * Get a list of new album releases featured in Spotify
+	 *
+	 * @param {String} [country] - An ISO-3166-1 alpha-2 country code (e.g. `US`, `BR`)
+	 * @param {SpotifyApiPaginationOptions} [pagOptions] - The pagination options for the request
+	 * @param {Number} [pagOptions.limit] - The maximum number of items to return (default is 20, min is 1, max is 50)
+	 * @param {Number} [pagOptions.offset] - The index of the first item to return (default is 0)
+	 * @returns {Promise<Response<SpotifyRelease>>}
+	 */
 	public async getNewReleases(
 		country: string = 'US',
 		pagOptions?: SpotifyApiPaginationOptions,
