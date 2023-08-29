@@ -1,12 +1,12 @@
 import { generateQParams } from 'lib/utils/gen-q-params';
 
 import {
-	type SpotifyRelease,
+	type SpotifyAlbumReleases,
 	type Response,
 	type SpotifyAlbum,
 	type SpotifyApiPaginationOptions,
 	type SpotifySeveralAlbums,
-	type SpotifyTrack,
+	type SpotifyAlbumTracks,
 } from '../typings';
 import { type TokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
@@ -17,11 +17,11 @@ export interface ISpotifyAlbumsResource {
 		albumId: string,
 		market?: string,
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyTrack>>;
+	): Promise<Response<SpotifyAlbumTracks>>;
 	getNewReleases(
 		country?: string,
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyRelease>>;
+	): Promise<Response<SpotifyAlbumReleases>>;
 	getSeveralAlbums(
 		albumsIds: string[],
 		market?: string,
@@ -60,13 +60,13 @@ export class SpotifyAlbumsResource
 	 * @param {SpotifyApiPaginationOptions} [pagOptions] - The pagination options for the request
 	 * @param {Number} [pagOptions.limit] - The maximum number of items to return (default is 20, min is 1, max is 50)
 	 * @param {Number} [pagOptions.offset] - The index of the first item to return (default is 0)
-	 * @returns {Promise<Response<SpotifyTrack>>}
+	 * @returns {Promise<Response<SpotifyAlbumTracks>>}
 	 */
 	public async getAlbumTracks(
 		albumId: string,
 		market: string = 'US',
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyTrack>> {
+	): Promise<Response<SpotifyAlbumTracks>> {
 		let endpoint: string = `albums/${albumId}/tracks?market=${market}`;
 
 		if (pagOptions)
@@ -74,7 +74,7 @@ export class SpotifyAlbumsResource
 				pagOptions,
 			)}`;
 
-		return this.makeRequest<SpotifyTrack>(endpoint);
+		return this.makeRequest<SpotifyAlbumTracks>(endpoint);
 	}
 
 	/**
@@ -84,12 +84,12 @@ export class SpotifyAlbumsResource
 	 * @param {SpotifyApiPaginationOptions} [pagOptions] - The pagination options for the request
 	 * @param {Number} [pagOptions.limit] - The maximum number of items to return (default is 20, min is 1, max is 50)
 	 * @param {Number} [pagOptions.offset] - The index of the first item to return (default is 0)
-	 * @returns {Promise<Response<SpotifyRelease>>}
+	 * @returns {Promise<Response<SpotifyAlbumReleases>>}
 	 */
 	public async getNewReleases(
 		country: string = 'US',
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyRelease>> {
+	): Promise<Response<SpotifyAlbumReleases>> {
 		let endpoint: string = `browse/new-releases?country=${country}`;
 
 		if (pagOptions)
@@ -97,7 +97,7 @@ export class SpotifyAlbumsResource
 				pagOptions,
 			)}`;
 
-		return this.makeRequest<SpotifyRelease>(endpoint);
+		return this.makeRequest<SpotifyAlbumReleases>(endpoint);
 	}
 
 	/**

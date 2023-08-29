@@ -42,7 +42,7 @@ export type SpotifyAlbumBase = {
 	uri: string;
 };
 
-export type SpotifyRelease = {
+export type SpotifyAlbumReleases = {
 	albums: SpotifyResultWithItems<
 		SpotifyAlbumBase & {
 			available_markets: Array<string>;
@@ -57,7 +57,7 @@ export type SpotifyAlbum = SpotifyAlbumBase & {
 	genres: Array<string>;
 	label: string;
 	popularity: number;
-	tracks: SpotifyTrack;
+	tracks: SpotifyAlbumTracks;
 };
 
 export type SpotifyArtistAlbums = SpotifyResultWithItems<
@@ -67,9 +67,9 @@ export type SpotifyArtistAlbums = SpotifyResultWithItems<
 	}
 >;
 
-export type SpotifyTrack = SpotifyResultWithItems<SpotifyTrackItem>;
+export type SpotifyAlbumTracks = SpotifyResultWithItems<SpotifyAlbumTracksItem>;
 
-export type SpotifyTrackItem = {
+export type SpotifyAlbumTracksItem = {
 	artists: Array<SpotifyAlbumArtist>;
 	available_markets?: Array<string>;
 	disc_number: number;
