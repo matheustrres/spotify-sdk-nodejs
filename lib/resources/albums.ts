@@ -11,7 +11,7 @@ import {
 import { type TokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
-export interface ISpotifyAlbumResource {
+export interface ISpotifyAlbumsResource {
 	getAlbum(albumId: string): Promise<Response<SpotifyAlbum>>;
 	getAlbumTracks(
 		albumId: string,
@@ -32,11 +32,11 @@ export interface ISpotifyAlbumResource {
  * Represents the Spotify Albums resource manager
  *
  * @extends {Resource}
- * @implements {ISpotifyAlbumResource}
+ * @implements {ISpotifyAlbumsResource}
  */
-export class SpotifyAlbumResource
+export class SpotifyAlbumsResource
 	extends Resource
-	implements ISpotifyAlbumResource
+	implements ISpotifyAlbumsResource
 {
 	public constructor(tokenManager: TokenManager) {
 		super(tokenManager);

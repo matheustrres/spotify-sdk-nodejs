@@ -1,17 +1,17 @@
 import { type TokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
-export interface ISpotifyArtistResource {}
+export interface ISpotifyArtistsResource {}
 
 /**
  * Represents the Spotify Artists resource manager
  *
  * @extends {Resource}
- * @implements {ISpotifyArtistResource}
+ * @implements {ISpotifyArtistsResource}
  */
-export class SpotifyArtistResource
+export class SpotifyArtistsResource
 	extends Resource
-	implements ISpotifyArtistResource
+	implements ISpotifyArtistsResource
 {
 	public constructor(tokenManager: TokenManager) {
 		super(tokenManager);
