@@ -1,5 +1,6 @@
 import { SpotifyAlbumsResource } from './resources/albums';
 import { SpotifyArtistsResource } from './resources/artists';
+import { SpotifyTracksResource } from './resources/tracks';
 import { TokenManager } from './utils/token-manager';
 
 export type SpotifySDKOptions = {
@@ -13,6 +14,7 @@ export type SpotifySDKOptions = {
 export class SpotifySDK {
 	private readonly albumsResource: SpotifyAlbumsResource;
 	private readonly artistsResource: SpotifyArtistsResource;
+	private readonly tracksResource: SpotifyTracksResource;
 
 	private readonly tokenManager: TokenManager;
 
@@ -31,6 +33,7 @@ export class SpotifySDK {
 
 		this.albumsResource = new SpotifyAlbumsResource(this.tokenManager);
 		this.artistsResource = new SpotifyArtistsResource(this.tokenManager);
+		this.tracksResource = new SpotifyTracksResource(this.tokenManager);
 	}
 
 	/**
@@ -45,5 +48,12 @@ export class SpotifySDK {
 	 */
 	public get artists(): SpotifyArtistsResource {
 		return this.artistsResource;
+	}
+
+	/**
+	 * The Spotify Tracks resource manager
+	 */
+	public get tracks(): SpotifyTracksResource {
+		return this.tracksResource;
 	}
 }
