@@ -69,31 +69,12 @@ export type SpotifyArtistAlbums = SpotifyResultWithItems<
 	}
 >;
 
-export type SpotifyAlbumTracks = SpotifyResultWithItems<SpotifyAlbumTracksItem>;
+export type SpotifyAlbumTracks = SpotifyResultWithItems<SpotifyTrackBase>;
 
-export type SpotifyAlbumTracksItem = {
-	artists: Array<SpotifyAlbumArtist>;
-	available_markets?: Array<string>;
-	disc_number: number;
-	duration_ms: number;
-	explicit: boolean;
-	external_urls: SpotifyExternalURLs;
-	href: string;
-	id: string;
-	is_local: boolean;
-	is_playable?: boolean;
-	name: string;
-	preview_url: string;
-	track_number: number;
-	type: string;
-	uri: string;
-};
-
-// external_urls,href,id,name,type,uri
 export type SpotifyAlbumArtist = Omit<
 	SpotifyArtist,
 	'followers' | 'genres' | 'images' | 'popularity'
->;
+>; // = external_urls,href,id,name,type,uri
 
 // --------------------- ARTISTS ---------------------
 
@@ -128,26 +109,29 @@ export type SpotifySeveralArtists = {
 
 // --------------------- TRACKS ---------------------
 
-export type SpotifyTrack = {
-	album: SpotifyAlbumBase & {
-		available_markets: string;
-	};
+export type SpotifyTrackBase = {
 	artists: Array<SpotifyAlbumArtist>;
-	available_markets: string[];
 	disc_number: number;
 	duration_ms: number;
 	explicit: boolean;
-	external_ids: SpotifyExternalIDs;
 	external_urls: SpotifyExternalURLs;
 	href: string;
 	id: string;
 	is_local: boolean;
 	name: string;
-	popularity: number;
 	preview_url: string | null;
 	track_number: number;
 	type: string;
 	uri: string;
+};
+
+export type SpotifyTrack = SpotifyTrackBase & {
+	album: SpotifyAlbumBase & {
+		available_markets: string;
+	};
+	available_markets: string[];
+	external_ids: SpotifyExternalIDs;
+	popularity: number;
 };
 
 // --------------------- API ---------------------
