@@ -62,6 +62,12 @@ export class SpotifyTracksResource
 		return this.makeRequest<SpotifyTrack>(`tracks/${trackId}?market=${market}`);
 	}
 
+	/**
+	 * Get audio feature information for a single track
+	 *
+	 * @param {String} trackId - The Spotify ID for the track
+	 * @returns {Promise<Response<SpotifyTrackAudioFeatures>>}
+	 */
 	public async getTrackAudioFeatures(
 		trackId: string,
 	): Promise<Response<SpotifyTrackAudioFeatures>> {
