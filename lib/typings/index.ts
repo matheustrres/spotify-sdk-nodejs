@@ -127,11 +127,16 @@ export type SpotifyTrackBase = {
 
 export type SpotifyTrack = SpotifyTrackBase & {
 	album: SpotifyAlbumBase & {
-		available_markets: string;
+		is_playable: boolean;
 	};
 	available_markets: string[];
 	external_ids: SpotifyExternalIDs;
+	is_playable: boolean;
 	popularity: number;
+};
+
+export type SpotifySeveralTracks = {
+	tracks: Array<Omit<SpotifyTrack, 'available_markets'>>;
 };
 
 // --------------------- API ---------------------
