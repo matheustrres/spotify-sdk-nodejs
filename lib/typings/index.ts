@@ -27,6 +27,8 @@ export type SpotifyImage = {
 	width: number;
 };
 
+// --------------------- ALBUMS ---------------------
+
 export type SpotifyAlbumBase = {
 	album_type: string;
 	artists: Array<SpotifyAlbumArtist>;
@@ -87,6 +89,14 @@ export type SpotifyAlbumTracksItem = {
 	uri: string;
 };
 
+// external_urls,href,id,name,type,uri
+export type SpotifyAlbumArtist = Omit<
+	SpotifyArtist,
+	'followers' | 'genres' | 'images' | 'popularity'
+>;
+
+// --------------------- ARTISTS ---------------------
+
 export type SpotifyArtist = {
 	external_urls: SpotifyExternalURLs;
 	followers: {
@@ -103,11 +113,6 @@ export type SpotifyArtist = {
 	uri: string;
 };
 
-export type SpotifyAlbumArtist = Omit<
-	SpotifyArtist,
-	'followers' | 'genres' | 'images' | 'popularity'
->;
-
 export type SpotifySeveralAlbums = {
 	albums: Array<
 		SpotifyAlbum & {
@@ -119,6 +124,30 @@ export type SpotifySeveralAlbums = {
 
 export type SpotifySeveralArtists = {
 	artists: Array<SpotifyArtist>;
+};
+
+// --------------------- TRACKS ---------------------
+
+export type SpotifyTrack = {
+	album: SpotifyAlbumBase & {
+		available_markets: string;
+	};
+	artists: Array<SpotifyAlbumArtist>;
+	available_markets: string[];
+	disc_number: number;
+	duration_ms: number;
+	explicit: boolean;
+	external_ids: SpotifyExternalIDs;
+	external_urls: SpotifyExternalURLs;
+	href: string;
+	id: string;
+	is_local: boolean;
+	name: string;
+	popularity: number;
+	preview_url: string | null;
+	track_number: number;
+	type: string;
+	uri: string;
 };
 
 // --------------------- API ---------------------
