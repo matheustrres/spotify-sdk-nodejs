@@ -107,6 +107,14 @@ export type SpotifySeveralArtists = {
 	artists: Array<SpotifyArtist>;
 };
 
+export type SpotifyArtistTopTracks = {
+	tracks: Array<
+		Omit<SpotifyTrack, 'available_markets'> & {
+			is_playable: boolean;
+		}
+	>;
+};
+
 // --------------------- TRACKS ---------------------
 
 export type SpotifyTrackBase = {

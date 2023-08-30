@@ -4,6 +4,7 @@ import {
 	type SpotifyArtist,
 	type SpotifyApiPaginationOptions,
 	type SpotifyArtistAlbums,
+	type SpotifyArtistTopTracks,
 } from '../typings';
 import { generateQParams } from '../utils/gen-q-params';
 import { type TokenManager } from '../utils/token-manager';
@@ -19,6 +20,10 @@ export interface ISpotifyArtistsResource {
 		includeGroups?: Array<GroupsToInclude>,
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Response<SpotifyArtistAlbums>>;
+	getArtistTopTracks(
+		artistId: string,
+		market?: string,
+	): Promise<Response<SpotifyArtistTopTracks>>;
 	getSeveralArtists(
 		artistsIds: string[],
 	): Promise<Response<SpotifySeveralArtists>>;
@@ -78,6 +83,22 @@ export class SpotifyArtistsResource
 		});
 
 		return this.makeRequest<SpotifyArtistAlbums>(`${endpoint}&${qParam}`);
+	}
+
+	/**
+	 * Get Spotify catalog information about an artist's top tracks by country
+	 *
+	 * @param {String} artistId - The Spotify ID of the artist
+	 * @param {String} [market] - An ISO 3166-1 alpha-2 country code
+	 * @returns {Promise<Response<SpotifyArtistTopTracks>>}
+	 */
+	public async getArtistTopTracks(
+		artistId: string,
+		market: string = 'US',
+	): Promise<Response<SpotifyArtistTopTracks>> {
+		return this.makeRequest<SpotifyArtistTopTracks>(
+			`artists/${artistId}/top-tracks?market=${market}`,
+		);
 	}
 
 	/**
