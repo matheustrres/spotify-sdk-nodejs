@@ -160,6 +160,10 @@ export type SpotifyTrackAudioFeatures = {
 	valence: number;
 };
 
+export type SpotifyTracksAudioFeatures = {
+	audio_features: Array<SpotifyTrackAudioFeatures>;
+};
+
 export type SpotifyTrackAudioAnalysis = {
 	meta: SpotifyTrackAudioAnalysisMeta;
 	track: SpotifyTrackAudioAnalysisTrack;

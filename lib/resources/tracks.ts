@@ -4,6 +4,7 @@ import {
 	type SpotifySeveralTracks,
 	type SpotifyTrackAudioFeatures,
 	type SpotifyTrackAudioAnalysis,
+	type SpotifyTracksAudioFeatures,
 } from '../typings';
 import { type TokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
@@ -17,6 +18,9 @@ export interface ISpotifyTracksResource {
 	getTrackAudioFeatures(
 		trackId: string,
 	): Promise<Response<SpotifyTrackAudioFeatures>>;
+	getTracksAudioFeatures(
+		tracksIds: string[],
+	): Promise<Response<SpotifyTracksAudioFeatures>>;
 	getTrackAudioAnalysis(
 		trackId: string,
 	): Promise<Response<SpotifyTrackAudioAnalysis>>;
@@ -77,6 +81,14 @@ export class SpotifyTracksResource
 	): Promise<Response<SpotifyTrackAudioFeatures>> {
 		return this.makeRequest<SpotifyTrackAudioFeatures>(
 			`audio-features/${trackId}`,
+		);
+	}
+
+	public async getTracksAudioFeatures(
+		tracksIds: string[],
+	): Promise<Response<SpotifyTracksAudioFeatures>> {
+		return this.makeRequest<SpotifyTracksAudioFeatures>(
+			`audio-features?ids=${tracksIds.slice(0, 99).join(',')}`,
 		);
 	}
 
