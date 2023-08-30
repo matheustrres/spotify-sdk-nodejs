@@ -2,16 +2,20 @@ import {
 	type SpotifyTrack,
 	type Response,
 	type SpotifySeveralTracks,
+	type SpotifyTrackAudioFeatures,
 } from '../typings';
 import { type TokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
 export interface ISpotifyTracksResource {
-	getTrack(trackId: string, market?: string): Promise<Response<SpotifyTrack>>;
 	getSeveralTracks(
 		tracksIds: string[],
 		market?: string,
 	): Promise<Response<any>>;
+	getTrack(trackId: string, market?: string): Promise<Response<SpotifyTrack>>;
+	getTrackAudioFeatures(
+		trackId: string,
+	): Promise<Response<SpotifyTrackAudioFeatures>>;
 }
 
 /**
@@ -56,5 +60,13 @@ export class SpotifyTracksResource
 		market: string = 'US',
 	): Promise<Response<SpotifyTrack>> {
 		return this.makeRequest<SpotifyTrack>(`tracks/${trackId}?market=${market}`);
+	}
+
+	public async getTrackAudioFeatures(
+		trackId: string,
+	): Promise<Response<SpotifyTrackAudioFeatures>> {
+		return this.makeRequest<SpotifyTrackAudioFeatures>(
+			`audio-features/${trackId}`,
+		);
 	}
 }
