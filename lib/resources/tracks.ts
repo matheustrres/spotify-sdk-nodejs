@@ -84,6 +84,12 @@ export class SpotifyTracksResource
 		);
 	}
 
+	/**
+	 * Get audio features for multiple tracks
+	 *
+	 * @param {Array<String>} tracksIds - A comma-separated list of the Spotify IDs for the tracks
+	 * @returns {Promise<Response<SpotifyTracksAudioFeatures>>}
+	 */
 	public async getTracksAudioFeatures(
 		tracksIds: string[],
 	): Promise<Response<SpotifyTracksAudioFeatures>> {
