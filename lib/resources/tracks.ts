@@ -3,6 +3,7 @@ import {
 	type Response,
 	type SpotifySeveralTracks,
 	type SpotifyTrackAudioFeatures,
+	type SpotifyTrackAudioAnalysis,
 } from '../typings';
 import { type TokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
@@ -16,6 +17,9 @@ export interface ISpotifyTracksResource {
 	getTrackAudioFeatures(
 		trackId: string,
 	): Promise<Response<SpotifyTrackAudioFeatures>>;
+	getTrackAudioAnalysis(
+		trackId: string,
+	): Promise<Response<SpotifyTrackAudioAnalysis>>;
 }
 
 /**
@@ -73,6 +77,20 @@ export class SpotifyTracksResource
 	): Promise<Response<SpotifyTrackAudioFeatures>> {
 		return this.makeRequest<SpotifyTrackAudioFeatures>(
 			`audio-features/${trackId}`,
+		);
+	}
+
+	/**
+	 * Get a low-level audio analysis for a track in the Spotify catalog
+	 *
+	 * @param {String} trackId - The Spotify ID for the track
+	 * @returns {Promise<Response<SpotifyTrackAudioAnalysis>>}
+	 */
+	public async getTrackAudioAnalysis(
+		trackId: string,
+	): Promise<Response<SpotifyTrackAudioAnalysis>> {
+		return this.makeRequest<SpotifyTrackAudioAnalysis>(
+			`audio-analysis/${trackId}`,
 		);
 	}
 }
