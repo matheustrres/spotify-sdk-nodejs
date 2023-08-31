@@ -1,4 +1,4 @@
-import { makeGET, type SpotifyApiResponse } from '../utils/request';
+import { makeGET, type SpotifyApiResponse } from '../request';
 import { type TokenManager } from '../utils/token-manager';
 
 export class Resource {

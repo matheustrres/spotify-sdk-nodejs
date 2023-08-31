@@ -1,5 +1,5 @@
-import { type Response, type SpotifyApiClientCredentials } from '../typings';
-import { makePOST } from './request';
+import { makePOST } from '../request';
+import { type SpotifyApiClientCredentials } from '../typings';
 
 export interface ITokenManager {
 	getAuthToken(): Promise<string>;
@@ -35,7 +35,7 @@ export class TokenManager implements ITokenManager {
 	}
 
 	private async fetchClientToken(): Promise<void> {
-		const response: Response<SpotifyApiClientCredentials> = await makePOST(
+		const response = await makePOST<SpotifyApiClientCredentials>(
 			'https://accounts.spotify.com/api/token?grant_type=client_credentials',
 			{
 				headers: {

@@ -1,4 +1,4 @@
-import { type CommonError } from '../typings';
+import { type CommonError } from './typings';
 
 export type SpotifyApiResponse<T = any> =
 	| {
