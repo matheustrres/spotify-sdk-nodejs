@@ -1,7 +1,7 @@
 import { SpotifyAlbumsResource } from './resources/albums';
 import { SpotifyArtistsResource } from './resources/artists';
 import { SpotifyTracksResource } from './resources/tracks';
-import { TokenManager } from './utils/token-manager';
+import { SpotifyTokenManager } from './utils/token-manager';
 
 export type SpotifySDKOptions = {
 	clientId: string;
@@ -16,7 +16,7 @@ export class SpotifySDK {
 	private readonly artistsResource: SpotifyArtistsResource;
 	private readonly tracksResource: SpotifyTracksResource;
 
-	private readonly tokenManager: TokenManager;
+	private readonly spotifyTokenManager: SpotifyTokenManager;
 
 	/**
 	 * Create a new SpotifySDK instance
@@ -26,14 +26,14 @@ export class SpotifySDK {
 	 * @param {String} options.clientSecret - The Spotify client secret
 	 */
 	public constructor(options: SpotifySDKOptions) {
-		this.tokenManager = new TokenManager(
+		this.spotifyTokenManager = new SpotifyTokenManager(
 			options.clientId,
 			options.clientSecret,
 		);
 
-		this.albumsResource = new SpotifyAlbumsResource(this.tokenManager);
-		this.artistsResource = new SpotifyArtistsResource(this.tokenManager);
-		this.tracksResource = new SpotifyTracksResource(this.tokenManager);
+		this.albumsResource = new SpotifyAlbumsResource(this.spotifyTokenManager);
+		this.artistsResource = new SpotifyArtistsResource(this.spotifyTokenManager);
+		this.tracksResource = new SpotifyTracksResource(this.spotifyTokenManager);
 	}
 
 	/**

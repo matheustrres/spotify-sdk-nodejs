@@ -1,17 +1,15 @@
 import { makeGET, type SpotifyApiResponse } from '../request';
-import { type TokenManager } from '../utils/token-manager';
+import { type SpotifyTokenManager } from '../utils/token-manager';
 
 export class Resource {
-	protected readonly tokenManager: TokenManager;
-
-	public constructor(tokenManager: TokenManager) {
-		this.tokenManager = tokenManager;
-	}
+	public constructor(
+		protected readonly spotifyTokenManager: SpotifyTokenManager,
+	) {}
 
 	protected async makeRequest<T>(
 		endpoint: string,
 	): Promise<SpotifyApiResponse<T>> {
-		const authToken: string = await this.tokenManager.getAuthToken();
+		const authToken: string = await this.spotifyTokenManager.getAuthToken();
 
 		return makeGET<T>(`https://api.spotify.com/v1/${endpoint}`, {
 			headers: {

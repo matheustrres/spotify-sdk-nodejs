@@ -7,7 +7,7 @@ import {
 	type Result,
 } from '../typings';
 import { generateQParams } from '../utils/gen-q-params';
-import { type TokenManager } from '../utils/token-manager';
+import { type SpotifyTokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
 export interface ISpotifyAlbumsResource {
@@ -37,8 +37,8 @@ export class SpotifyAlbumsResource
 	extends Resource
 	implements ISpotifyAlbumsResource
 {
-	public constructor(tokenManager: TokenManager) {
-		super(tokenManager);
+	public constructor(spotifyTokenManager: SpotifyTokenManager) {
+		super(spotifyTokenManager);
 	}
 
 	/**

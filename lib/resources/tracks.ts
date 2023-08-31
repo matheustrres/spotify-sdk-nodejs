@@ -6,7 +6,7 @@ import {
 	type SpotifyTrackAudioAnalysis,
 	type SpotifyTracksAudioFeatures,
 } from '../typings';
-import { type TokenManager } from '../utils/token-manager';
+import { type SpotifyTokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
 export interface ISpotifyTracksResource {
@@ -36,8 +36,8 @@ export class SpotifyTracksResource
 	extends Resource
 	implements ISpotifyTracksResource
 {
-	public constructor(tokenManager: TokenManager) {
-		super(tokenManager);
+	public constructor(spotifyTokenManager: SpotifyTokenManager) {
+		super(spotifyTokenManager);
 	}
 
 	/**

@@ -1,11 +1,11 @@
 import { makePOST } from '../request';
 import { type SpotifyApiClientCredentials } from '../typings';
 
-export interface ITokenManager {
+export interface ISpotifyTokenManager {
 	getAuthToken(): Promise<string>;
 }
 
-export class TokenManager implements ITokenManager {
+export class SpotifyTokenManager implements ISpotifyTokenManager {
 	private readonly basicAuthCredentials: string; // base64 encoded credential
 
 	private authToken: string; // Bearer <token>
