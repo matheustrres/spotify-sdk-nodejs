@@ -50,9 +50,9 @@
   },
   "keywords": [
     "node.js",
-    "messari",
-    "gemini-wrapper",
-    "client",
+    "spotify",
+    "sdk",
+    "spotify-web-api",
     "wrapper",
     "easy-to-use"
   ]
