@@ -48,9 +48,11 @@ export class SpotifyAlbumsResource
 	 * @returns {Promise<Result<SpotifyAlbum>>}
 	 */
 	public async getAlbum(albumId: string): Promise<Result<SpotifyAlbum>> {
-		const response = await this.makeRequest<SpotifyAlbum>(`albums/${albumId}`);
+		const spotifyApiResponse = await this.makeRequest<SpotifyAlbum>(
+			`albums/${albumId}`,
+		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -75,9 +77,10 @@ export class SpotifyAlbumsResource
 				pagOptions,
 			)}`;
 
-		const response = await this.makeRequest<SpotifyAlbumTracks>(endpoint);
+		const spotifyApiResponse =
+			await this.makeRequest<SpotifyAlbumTracks>(endpoint);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -100,9 +103,10 @@ export class SpotifyAlbumsResource
 				pagOptions,
 			)}`;
 
-		const response = await this.makeRequest<SpotifyAlbumReleases>(endpoint);
+		const spotifyApiResponse =
+			await this.makeRequest<SpotifyAlbumReleases>(endpoint);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -116,10 +120,10 @@ export class SpotifyAlbumsResource
 		albumsIds: string[],
 		market: string = 'US',
 	): Promise<Result<SpotifySeveralAlbums>> {
-		const response = await this.makeRequest<SpotifySeveralAlbums>(
+		const spotifyApiResponse = await this.makeRequest<SpotifySeveralAlbums>(
 			`albums?ids=${albumsIds.slice(0, 19).join(',')}&market=${market}`,
 		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 }

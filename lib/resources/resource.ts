@@ -1,3 +1,5 @@
+import { type Result } from 'lib/typings';
+
 import { makeGET, type SpotifyApiResponse } from '../request';
 import { type SpotifyTokenManager } from '../utils/token-manager';
 
@@ -16,5 +18,21 @@ export class Resource {
 				Authorization: authToken,
 			},
 		});
+	}
+
+	protected reply<T>(spotifyApiResponse: SpotifyApiResponse<T>): Result<T> {
+		const timestamp: string = new Date().toISOString();
+
+		if (spotifyApiResponse.error) {
+			return {
+				timestamp,
+				error: spotifyApiResponse.error,
+			};
+		}
+
+		return {
+			timestamp,
+			data: spotifyApiResponse,
+		};
 	}
 }

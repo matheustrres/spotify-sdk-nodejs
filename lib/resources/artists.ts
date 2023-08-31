@@ -50,11 +50,11 @@ export class SpotifyArtistsResource
 	 * @returns {Promise<Result<SpotifyArtist>>}
 	 */
 	public async getArtist(artistId: string): Promise<Result<SpotifyArtist>> {
-		const response = await this.makeRequest<SpotifyArtist>(
+		const spotifyApiResponse = await this.makeRequest<SpotifyArtist>(
 			`artists/${artistId}`,
 		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -62,7 +62,7 @@ export class SpotifyArtistsResource
 	 *
 	 * @param {String} artistId - The Spotify ID of the artist
 	 * @param {String} [market] - An ISO-3166-1 alpha-2 country code (e.g. `US`, `BR`)
-	 * @param {Array<GroupsToInclude>} [includeGroups] - An array of keywords to filter the response
+	 * @param {Array<GroupsToInclude>} [includeGroups] - An array of keywords to filter the spotifyApiResponse
 	 * @param {SpotifyApiPaginationOptions} [pagOptions] - The pagination options for the request
 	 * @param {Number} [pagOptions.limit] - The maximum number of items to return (default is 20, min is 1, max is 50)
 	 * @param {Number} [pagOptions.offset] - The index of the first item to return (default is 0)
@@ -86,11 +86,11 @@ export class SpotifyArtistsResource
 			offset: pagOptions?.offset,
 		});
 
-		const response = await this.makeRequest<SpotifyArtistAlbums>(
+		const spotifyApiResponse = await this.makeRequest<SpotifyArtistAlbums>(
 			`${endpoint}&${qParam}`,
 		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -104,11 +104,11 @@ export class SpotifyArtistsResource
 		artistId: string,
 		market: string = 'US',
 	): Promise<Result<SpotifyArtistTopTracks>> {
-		const response = await this.makeRequest<SpotifyArtistTopTracks>(
+		const spotifyApiResponse = await this.makeRequest<SpotifyArtistTopTracks>(
 			`artists/${artistId}/top-tracks?market=${market}`,
 		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -120,10 +120,10 @@ export class SpotifyArtistsResource
 	public async getSeveralArtists(
 		artistsIds: string[],
 	): Promise<Result<SpotifySeveralArtists>> {
-		const response = await this.makeRequest<SpotifySeveralArtists>(
+		const spotifyApiResponse = await this.makeRequest<SpotifySeveralArtists>(
 			`artists?ids=${artistsIds.slice(0, 49).join(',')}`,
 		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 }

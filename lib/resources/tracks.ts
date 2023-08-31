@@ -51,11 +51,11 @@ export class SpotifyTracksResource
 		tracksIds: string[],
 		market: string = 'US',
 	): Promise<Result<SpotifySeveralTracks>> {
-		const response = await this.makeRequest<SpotifySeveralTracks>(
+		const spotifyApiResponse = await this.makeRequest<SpotifySeveralTracks>(
 			`tracks?ids=${tracksIds.join(',')}&market=${market}`,
 		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -69,11 +69,11 @@ export class SpotifyTracksResource
 		trackId: string,
 		market: string = 'US',
 	): Promise<Result<SpotifyTrack>> {
-		const response = await this.makeRequest<SpotifyTrack>(
+		const spotifyApiResponse = await this.makeRequest<SpotifyTrack>(
 			`tracks/${trackId}?market=${market}`,
 		);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -85,11 +85,12 @@ export class SpotifyTracksResource
 	public async getTrackAudioFeatures(
 		trackId: string,
 	): Promise<Result<SpotifyTrackAudioFeatures>> {
-		const response = await this.makeRequest<SpotifyTrackAudioFeatures>(
-			`audio-features/${trackId}`,
-		);
+		const spotifyApiResponse =
+			await this.makeRequest<SpotifyTrackAudioFeatures>(
+				`audio-features/${trackId}`,
+			);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -101,11 +102,12 @@ export class SpotifyTracksResource
 	public async getTracksAudioFeatures(
 		tracksIds: string[],
 	): Promise<Result<SpotifyTracksAudioFeatures>> {
-		const response = await this.makeRequest<SpotifyTracksAudioFeatures>(
-			`audio-features?ids=${tracksIds.slice(0, 99).join(',')}`,
-		);
+		const spotifyApiResponse =
+			await this.makeRequest<SpotifyTracksAudioFeatures>(
+				`audio-features?ids=${tracksIds.slice(0, 99).join(',')}`,
+			);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 
 	/**
@@ -117,10 +119,11 @@ export class SpotifyTracksResource
 	public async getTrackAudioAnalysis(
 		trackId: string,
 	): Promise<Result<SpotifyTrackAudioAnalysis>> {
-		const response = await this.makeRequest<SpotifyTrackAudioAnalysis>(
-			`audio-analysis/${trackId}`,
-		);
+		const spotifyApiResponse =
+			await this.makeRequest<SpotifyTrackAudioAnalysis>(
+				`audio-analysis/${trackId}`,
+			);
 
-		return response.error ? response : { data: response };
+		return this.reply(spotifyApiResponse);
 	}
 }
