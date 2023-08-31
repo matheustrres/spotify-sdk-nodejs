@@ -4,6 +4,7 @@ import { SpotifySDK } from '../lib/spotify-sdk';
 // ------------------
 import spotifyApiGetAlbumResponse from './fixtures/albums/spotify_api_get_album_response.json';
 import spotifyApiGetAlbumTracksResponse from './fixtures/albums/spotify_api_get_album_tracks_response.json';
+import spotifyApiGetNewsReleasesResponse from './fixtures/albums/spotify_api_get_new_releases_response.json';
 
 describe('SpotifySDK', (): void => {
 	let sdk: SpotifySDK;
@@ -44,6 +45,19 @@ describe('SpotifySDK', (): void => {
 				expect(error).toBe(undefined);
 				expect(data).toBeDefined();
 				expect(data).toMatchObject(spotifyApiGetAlbumTracksResponse);
+			});
+		});
+
+		describe('.getNewReleases', (): void => {
+			it('should return a list of new album releases featured in Spotify', async (): Promise<void> => {
+				const { data, error } = await sdk.albums.getNewReleases('SE', {
+					limit: 5,
+					offset: 2,
+				});
+
+				expect(error).toBe(undefined);
+				expect(data).toBeDefined();
+				expect(data).toMatchObject(spotifyApiGetNewsReleasesResponse);
 			});
 		});
 	});
