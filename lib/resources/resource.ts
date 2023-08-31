@@ -1,5 +1,4 @@
-import { type Response } from '../typings';
-import { makeGET } from '../utils/request';
+import { makeGET, type SpotifyApiResponse } from '../utils/request';
 import { type TokenManager } from '../utils/token-manager';
 
 export class Resource {
@@ -9,7 +8,9 @@ export class Resource {
 		this.tokenManager = tokenManager;
 	}
 
-	protected async makeRequest<T>(endpoint: string): Promise<Response<T>> {
+	protected async makeRequest<T>(
+		endpoint: string,
+	): Promise<SpotifyApiResponse<T>> {
 		const authToken: string = await this.tokenManager.getAuthToken();
 
 		return makeGET<T>(`https://api.spotify.com/v1/${endpoint}`, {

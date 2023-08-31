@@ -1,4 +1,10 @@
-import { type Response } from '../typings';
+import { type CommonError } from '../typings';
+
+export type SpotifyApiResponse<T = any> =
+	| {
+			error: CommonError;
+	  }
+	| ({ error?: never } & T);
 
 export type RequestOptions = {
 	headers: HeadersInit;
@@ -15,16 +21,16 @@ export type GETRequestOptions = Omit<RequestOptions, 'body'>;
  * @param {GETRequestOptions} options - The request options to use
  * @param {HeadersInit} options.headers - The headers to use for the request
  * @param {RequestMode} [options.mode] - The request mode of the request
- * @returns {Promise<Response<T>>}
+ * @returns {Promise<SpotifyApiResponse<T>>}
  */
 export const makeGET = async <T>(
 	url: string,
 	options: GETRequestOptions,
-): Promise<Response<T>> => {
+): Promise<SpotifyApiResponse<T>> => {
 	return await fetch(new URL(url), {
 		method: 'GET',
 		...options,
-	}).then((r) => r.json() as Promise<Response<T>>);
+	}).then((r) => r.json() as Promise<SpotifyApiResponse<T>>);
 };
 
 /**
@@ -35,14 +41,14 @@ export const makeGET = async <T>(
  * @param {HeadersInit} options.headers - The headers to use for the request
  * @param {RequestMode} [options.mode] - The request mode of the request
  * @param {BodyInit} [options.body] - The body of the request
- * @returns {Promise<Response<T>>}
+ * @returns {Promise<SpotifyApiResponse<T>>}
  */
 export const makePOST = async <T>(
 	url: string,
 	options: RequestOptions,
-): Promise<Response<T>> => {
+): Promise<SpotifyApiResponse<T>> => {
 	return await fetch(new URL(url), {
 		method: 'POST',
 		...options,
-	}).then((r) => r.json() as Promise<Response<T>>);
+	}).then((r) => r.json() as Promise<SpotifyApiResponse<T>>);
 };

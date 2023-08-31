@@ -1,6 +1,6 @@
 import {
 	type SpotifyTrack,
-	type Response,
+	type Result,
 	type SpotifySeveralTracks,
 	type SpotifyTrackAudioFeatures,
 	type SpotifyTrackAudioAnalysis,
@@ -13,17 +13,17 @@ export interface ISpotifyTracksResource {
 	getSeveralTracks(
 		tracksIds: string[],
 		market?: string,
-	): Promise<Response<any>>;
-	getTrack(trackId: string, market?: string): Promise<Response<SpotifyTrack>>;
+	): Promise<Result<SpotifySeveralTracks>>;
+	getTrack(trackId: string, market?: string): Promise<Result<SpotifyTrack>>;
 	getTrackAudioFeatures(
 		trackId: string,
-	): Promise<Response<SpotifyTrackAudioFeatures>>;
+	): Promise<Result<SpotifyTrackAudioFeatures>>;
 	getTracksAudioFeatures(
 		tracksIds: string[],
-	): Promise<Response<SpotifyTracksAudioFeatures>>;
+	): Promise<Result<SpotifyTracksAudioFeatures>>;
 	getTrackAudioAnalysis(
 		trackId: string,
-	): Promise<Response<SpotifyTrackAudioAnalysis>>;
+	): Promise<Result<SpotifyTrackAudioAnalysis>>;
 }
 
 /**
@@ -45,15 +45,17 @@ export class SpotifyTracksResource
 	 *
 	 * @param {Array<String>} tracksIds - A comma-separated list of the Spotify IDs for the tracks
 	 * @param {String} [market] - An ISO-3166-1 alpha-2 country code (e.g. `US`, `BR`)
-	 * @returns {Promise<Response<SpotifySeveralTracks>>}
+	 * @returns {Promise<Result<SpotifySeveralTracks>>}
 	 */
 	public async getSeveralTracks(
 		tracksIds: string[],
 		market: string = 'US',
-	): Promise<Response<SpotifySeveralTracks>> {
-		return this.makeRequest(
+	): Promise<Result<SpotifySeveralTracks>> {
+		const response = await this.makeRequest<SpotifySeveralTracks>(
 			`tracks?ids=${tracksIds.join(',')}&market=${market}`,
 		);
+
+		return response.error ? response : { data: response };
 	}
 
 	/**
@@ -61,54 +63,64 @@ export class SpotifyTracksResource
 	 *
 	 * @param {String} trackId - The Spotify ID for the track
 	 * @param {String} [market] - An ISO-3166-1 alpha-2 country code (e.g. `US`, `BR`)
-	 * @returns {Promise<Response<SpotifyTrack>>}
+	 * @returns {Promise<Result<SpotifyTrack>>}
 	 */
 	public async getTrack(
 		trackId: string,
 		market: string = 'US',
-	): Promise<Response<SpotifyTrack>> {
-		return this.makeRequest<SpotifyTrack>(`tracks/${trackId}?market=${market}`);
+	): Promise<Result<SpotifyTrack>> {
+		const response = await this.makeRequest<SpotifyTrack>(
+			`tracks/${trackId}?market=${market}`,
+		);
+
+		return response.error ? response : { data: response };
 	}
 
 	/**
 	 * Get audio feature information for a single track
 	 *
 	 * @param {String} trackId - The Spotify ID for the track
-	 * @returns {Promise<Response<SpotifyTrackAudioFeatures>>}
+	 * @returns {Promise<Result<SpotifyTrackAudioFeatures>>}
 	 */
 	public async getTrackAudioFeatures(
 		trackId: string,
-	): Promise<Response<SpotifyTrackAudioFeatures>> {
-		return this.makeRequest<SpotifyTrackAudioFeatures>(
+	): Promise<Result<SpotifyTrackAudioFeatures>> {
+		const response = await this.makeRequest<SpotifyTrackAudioFeatures>(
 			`audio-features/${trackId}`,
 		);
+
+		return response.error ? response : { data: response };
 	}
 
 	/**
 	 * Get audio features for multiple tracks
 	 *
 	 * @param {Array<String>} tracksIds - A comma-separated list of the Spotify IDs for the tracks
-	 * @returns {Promise<Response<SpotifyTracksAudioFeatures>>}
+	 * @returns {Promise<Result<SpotifyTracksAudioFeatures>>}
 	 */
 	public async getTracksAudioFeatures(
 		tracksIds: string[],
-	): Promise<Response<SpotifyTracksAudioFeatures>> {
-		return this.makeRequest<SpotifyTracksAudioFeatures>(
+	): Promise<Result<SpotifyTracksAudioFeatures>> {
+		const response = await this.makeRequest<SpotifyTracksAudioFeatures>(
 			`audio-features?ids=${tracksIds.slice(0, 99).join(',')}`,
 		);
+
+		return response.error ? response : { data: response };
 	}
 
 	/**
 	 * Get a low-level audio analysis for a track in the Spotify catalog
 	 *
 	 * @param {String} trackId - The Spotify ID for the track
-	 * @returns {Promise<Response<SpotifyTrackAudioAnalysis>>}
+	 * @returns {Promise<Result<SpotifyTrackAudioAnalysis>>}
 	 */
 	public async getTrackAudioAnalysis(
 		trackId: string,
-	): Promise<Response<SpotifyTrackAudioAnalysis>> {
-		return this.makeRequest<SpotifyTrackAudioAnalysis>(
+	): Promise<Result<SpotifyTrackAudioAnalysis>> {
+		const response = await this.makeRequest<SpotifyTrackAudioAnalysis>(
 			`audio-analysis/${trackId}`,
 		);
+
+		return response.error ? response : { data: response };
 	}
 }

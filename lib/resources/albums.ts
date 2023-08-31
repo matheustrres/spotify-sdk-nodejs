@@ -1,31 +1,30 @@
-import { generateQParams } from 'lib/utils/gen-q-params';
-
 import {
 	type SpotifyAlbumReleases,
-	type Response,
 	type SpotifyAlbum,
 	type SpotifyApiPaginationOptions,
 	type SpotifySeveralAlbums,
 	type SpotifyAlbumTracks,
+	type Result,
 } from '../typings';
+import { generateQParams } from '../utils/gen-q-params';
 import { type TokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
 export interface ISpotifyAlbumsResource {
-	getAlbum(albumId: string): Promise<Response<SpotifyAlbum>>;
+	getAlbum(albumId: string): Promise<Result<SpotifyAlbum>>;
 	getAlbumTracks(
 		albumId: string,
 		market?: string,
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyAlbumTracks>>;
+	): Promise<Result<SpotifyAlbumTracks>>;
 	getNewReleases(
 		country?: string,
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyAlbumReleases>>;
+	): Promise<Result<SpotifyAlbumReleases>>;
 	getSeveralAlbums(
 		albumsIds: string[],
 		market?: string,
-	): Promise<Response<SpotifySeveralAlbums>>;
+	): Promise<Result<SpotifySeveralAlbums>>;
 }
 
 /**
@@ -46,10 +45,12 @@ export class SpotifyAlbumsResource
 	 * Get Spotify catalog information for a single album
 	 *
 	 * @param {String} albumId - The Spotify ID of the album
-	 * @returns {Promise<Response<SpotifyAlbum>>}
+	 * @returns {Promise<Result<SpotifyAlbum>>}
 	 */
-	public async getAlbum(albumId: string): Promise<Response<SpotifyAlbum>> {
-		return this.makeRequest<SpotifyAlbum>(`albums/${albumId}`);
+	public async getAlbum(albumId: string): Promise<Result<SpotifyAlbum>> {
+		const response = await this.makeRequest<SpotifyAlbum>(`albums/${albumId}`);
+
+		return response.error ? response : { data: response };
 	}
 
 	/**
@@ -60,13 +61,13 @@ export class SpotifyAlbumsResource
 	 * @param {SpotifyApiPaginationOptions} [pagOptions] - The pagination options for the request
 	 * @param {Number} [pagOptions.limit] - The maximum number of items to return (default is 20, min is 1, max is 50)
 	 * @param {Number} [pagOptions.offset] - The index of the first item to return (default is 0)
-	 * @returns {Promise<Response<SpotifyAlbumTracks>>}
+	 * @returns {Promise<Result<SpotifyAlbumTracks>>}
 	 */
 	public async getAlbumTracks(
 		albumId: string,
 		market: string = 'US',
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyAlbumTracks>> {
+	): Promise<Result<SpotifyAlbumTracks>> {
 		let endpoint: string = `albums/${albumId}/tracks?market=${market}`;
 
 		if (pagOptions)
@@ -74,7 +75,9 @@ export class SpotifyAlbumsResource
 				pagOptions,
 			)}`;
 
-		return this.makeRequest<SpotifyAlbumTracks>(endpoint);
+		const response = await this.makeRequest<SpotifyAlbumTracks>(endpoint);
+
+		return response.error ? response : { data: response };
 	}
 
 	/**
@@ -89,7 +92,7 @@ export class SpotifyAlbumsResource
 	public async getNewReleases(
 		country: string = 'US',
 		pagOptions?: SpotifyApiPaginationOptions,
-	): Promise<Response<SpotifyAlbumReleases>> {
+	): Promise<Result<SpotifyAlbumReleases>> {
 		let endpoint: string = `browse/new-releases?country=${country}`;
 
 		if (pagOptions)
@@ -97,7 +100,9 @@ export class SpotifyAlbumsResource
 				pagOptions,
 			)}`;
 
-		return this.makeRequest<SpotifyAlbumReleases>(endpoint);
+		const response = await this.makeRequest<SpotifyAlbumReleases>(endpoint);
+
+		return response.error ? response : { data: response };
 	}
 
 	/**
@@ -110,9 +115,11 @@ export class SpotifyAlbumsResource
 	public async getSeveralAlbums(
 		albumsIds: string[],
 		market: string = 'US',
-	): Promise<Response<SpotifySeveralAlbums>> {
-		return this.makeRequest<SpotifySeveralAlbums>(
+	): Promise<Result<SpotifySeveralAlbums>> {
+		const response = await this.makeRequest<SpotifySeveralAlbums>(
 			`albums?ids=${albumsIds.slice(0, 19).join(',')}&market=${market}`,
 		);
+
+		return response.error ? response : { data: response };
 	}
 }

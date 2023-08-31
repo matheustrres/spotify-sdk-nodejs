@@ -140,6 +140,13 @@ export type SpotifyTrack = SpotifyTrackBase & {
 	available_markets: string[];
 	external_ids: SpotifyExternalIDs;
 	is_playable: boolean;
+	linked_from: {
+		external_urls: SpotifyExternalURLs;
+		href: string;
+		id: string;
+		type: string;
+		uri: string;
+	};
 	popularity: number;
 };
 
@@ -267,13 +274,17 @@ export type SpotifyApiClientCredentials = {
 	token_type: string;
 };
 
-export type Response<T = any> =
+export type CommonError = {
+	status: number;
+	message: string;
+};
+
+export type Result<T> =
 	| {
-			error: {
-				status: number;
-				message: string;
-			};
+			error: CommonError;
+			data?: never;
 	  }
-	| ({
+	| {
 			error?: never;
-	  } & T);
+			data: T;
+	  };
