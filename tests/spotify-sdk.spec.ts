@@ -17,6 +17,7 @@ import spotifyApiGetSeveralArtistsResponse from './fixtures/artists/spotify_api_
 // fixtures/tracks
 // ------------------
 import spotifyApiGetSeveralTracksResponse from './fixtures/tracks/spotify_api_get_several_tracks_response.json';
+import spotifyApiGetTrackAudioAnalysisResponse from './fixtures/tracks/spotify_api_get_track_audio_analysis_response.json';
 import spotifyApiGetTrackAudioFeatures from './fixtures/tracks/spotify_api_get_track_audio_features_response.json';
 import spotifyApiGetTrackResponse from './fixtures/tracks/spotify_api_get_track_response.json';
 import spotifyApiGetTracksAudioFeaturesResponse from './fixtures/tracks/spotify_api_get_tracks_audio_features_response.json';
@@ -190,6 +191,18 @@ describe('SpotifySDK', (): void => {
 				expect(error).toBe(undefined);
 				expect(data).toBeDefined();
 				expect(data).toMatchObject(spotifyApiGetTracksAudioFeaturesResponse);
+			});
+		});
+
+		describe('.getTrackAudioAnalysis', (): void => {
+			it('should return a low-level audio analysis for a track', async (): Promise<void> => {
+				const { data, error } = await sdk.tracks.getTrackAudioAnalysis(
+					'7ouMYWpwJ422jRcDASZB7P',
+				);
+
+				expect(error).toBe(undefined);
+				expect(data).toBeDefined();
+				expect(data).toMatchObject(spotifyApiGetTrackAudioAnalysisResponse);
 			});
 		});
 	});
