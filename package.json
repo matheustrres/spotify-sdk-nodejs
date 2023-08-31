@@ -24,6 +24,7 @@
     "bundle": "npm run build && npm pack",
     "publish": "npm publish --access public",
     "test": "jest --runInBand --no-cache --verbose --passWithNoTests",
+    "test:cov": "npm test -- --coverage",
     "format": "prettier --write \"{lib,tests}/**/*.ts\"",
     "lint": "eslint \"{lib,tests}/**/*.ts\" --fix",
     "prepare": "husky install"
