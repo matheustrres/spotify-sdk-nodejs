@@ -71,7 +71,7 @@ export class SpotifyAlbumsResource
 		let endpoint: string = `albums/${albumId}/tracks?market=${market}`;
 
 		if (pagOptions)
-			endpoint += `?${generateQParams<SpotifyApiPaginationOptions>(
+			endpoint += `&${generateQParams<SpotifyApiPaginationOptions>(
 				pagOptions,
 			)}`;
 
@@ -96,7 +96,7 @@ export class SpotifyAlbumsResource
 		let endpoint: string = `browse/new-releases?country=${country}`;
 
 		if (pagOptions)
-			endpoint += `?${generateQParams<SpotifyApiPaginationOptions>(
+			endpoint += `&${generateQParams<SpotifyApiPaginationOptions>(
 				pagOptions,
 			)}`;
 
