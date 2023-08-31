@@ -13,6 +13,10 @@ import spotifyApiGetArtistAlbumsResponse from './fixtures/artists/spotify_api_ge
 import spotifyApiGetArtistResponse from './fixtures/artists/spotify_api_get_artist_response.json';
 import spotifyApiGetArtistTopTracksResponse from './fixtures/artists/spotify_api_get_artist_top_tracks_response.json';
 import spotifyApiGetSeveralArtistsResponse from './fixtures/artists/spotify_api_get_several_artists_response.json';
+// ------------------
+// fixtures/tracks
+// ------------------
+import spotifyApiGetSeveralTracksResponse from './fixtures/tracks/spotify_api_get_several_tracks_response.json';
 
 describe('SpotifySDK', (): void => {
 	let sdk: SpotifySDK;
@@ -130,6 +134,22 @@ describe('SpotifySDK', (): void => {
 				expect(error).toBe(undefined);
 				expect(data).toBeDefined();
 				expect(data).toMatchObject(spotifyApiGetSeveralArtistsResponse);
+			});
+		});
+	});
+
+	describe('.tracks', (): void => {
+		describe('.getSeveralTracks', (): void => {
+			it('should return spotify catalog information for several tracks', async (): Promise<void> => {
+				const { data, error } = await sdk.tracks.getSeveralTracks([
+					'7ouMYWpwJ422jRcDASZB7P',
+					'4VqPOruhp5EdPBeR92t6lQ',
+					'2takcwOaAZWiXQijPHIx7B',
+				]);
+
+				expect(error).toBe(undefined);
+				expect(data).toBeDefined();
+				expect(data).toMatchObject(spotifyApiGetSeveralTracksResponse);
 			});
 		});
 	});
