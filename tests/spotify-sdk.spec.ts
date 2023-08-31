@@ -3,6 +3,7 @@ import { SpotifySDK } from '../lib/spotify-sdk';
 // fixtures
 // ------------------
 import spotifyApiGetAlbumResponse from './fixtures/albums/spotify_api_get_album_response.json';
+import spotifyApiGetAlbumTracksResponse from './fixtures/albums/spotify_api_get_album_tracks_response.json';
 
 describe('SpotifySDK', (): void => {
 	let sdk: SpotifySDK;
@@ -23,7 +24,7 @@ describe('SpotifySDK', (): void => {
 
 	describe('.albums', (): void => {
 		describe('.getAlbum', (): void => {
-			it('should return spotify catalog information for a album', async (): Promise<void> => {
+			it('should return spotify catalog information for an album', async (): Promise<void> => {
 				const { data, error } = await sdk.albums.getAlbum(
 					'4aawyAB9vmqN3uQ7FjRGTy',
 				);
@@ -31,6 +32,18 @@ describe('SpotifySDK', (): void => {
 				expect(error).toBe(undefined);
 				expect(data).toBeDefined();
 				expect(data).toMatchObject(spotifyApiGetAlbumResponse);
+			});
+		});
+
+		describe('.getAlbumTracks', (): void => {
+			it("should return spotify catalog information about an album's tracks", async (): Promise<void> => {
+				const { data, error } = await sdk.albums.getAlbumTracks(
+					'4aawyAB9vmqN3uQ7FjRGTy',
+				);
+
+				expect(error).toBe(undefined);
+				expect(data).toBeDefined();
+				expect(data).toMatchObject(spotifyApiGetAlbumTracksResponse);
 			});
 		});
 	});
