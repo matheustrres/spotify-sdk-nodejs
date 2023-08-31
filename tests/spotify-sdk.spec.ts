@@ -19,6 +19,7 @@ import spotifyApiGetSeveralArtistsResponse from './fixtures/artists/spotify_api_
 import spotifyApiGetSeveralTracksResponse from './fixtures/tracks/spotify_api_get_several_tracks_response.json';
 import spotifyApiGetTrackAudioFeatures from './fixtures/tracks/spotify_api_get_track_audio_features_response.json';
 import spotifyApiGetTrackResponse from './fixtures/tracks/spotify_api_get_track_response.json';
+import spotifyApiGetTracksAudioFeaturesResponse from './fixtures/tracks/spotify_api_get_tracks_audio_features_response.json';
 
 describe('SpotifySDK', (): void => {
 	let sdk: SpotifySDK;
@@ -176,6 +177,19 @@ describe('SpotifySDK', (): void => {
 				expect(error).toBe(undefined);
 				expect(data).toBeDefined();
 				expect(data).toMatchObject(spotifyApiGetTrackAudioFeatures);
+			});
+		});
+
+		describe('.getTracksAudioFeatures', (): void => {
+			it('should return audio features information for multiple tracks', async (): Promise<void> => {
+				const { data, error } = await sdk.tracks.getTracksAudioFeatures([
+					'7ouMYWpwJ422jRcDASZB7P',
+					'4VqPOruhp5EdPBeR92t6lQ',
+				]);
+
+				expect(error).toBe(undefined);
+				expect(data).toBeDefined();
+				expect(data).toMatchObject(spotifyApiGetTracksAudioFeaturesResponse);
 			});
 		});
 	});
