@@ -7,6 +7,7 @@ import spotifyApiGetAlbumTracksResponse from './fixtures/albums/spotify_api_get_
 import spotifyApiGetNewsReleasesResponse from './fixtures/albums/spotify_api_get_new_releases_response.json';
 import spotifyApiGetSeveralAlbumsResponse from './fixtures/albums/spotify_api_get_several_albums_response.json';
 // fixtures/artists
+import spotifyApiGetArtistAlbumsResponse from './fixtures/artists/spotify_api_get_artist_albums_response.json';
 import spotifyApiGetArtistResponse from './fixtures/artists/spotify_api_get_artist_response.json';
 
 describe('SpotifySDK', (): void => {
@@ -88,6 +89,18 @@ describe('SpotifySDK', (): void => {
 				expect(error).toBe(undefined);
 				expect(data).toBeDefined();
 				expect(data).toMatchObject(spotifyApiGetArtistResponse);
+			});
+		});
+
+		describe('.getArtistAlbums', (): void => {
+			it("should return spotify catalog information about an artist's albums", async (): Promise<void> => {
+				const { data, error } = await sdk.artists.getArtistAlbums(
+					'0TnOYISbd1XYRBk9myaseg',
+				);
+
+				expect(error).toBe(undefined);
+				expect(data).toBeDefined();
+				expect(data).toMatchObject(spotifyApiGetArtistAlbumsResponse);
 			});
 		});
 	});
