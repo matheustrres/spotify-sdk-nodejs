@@ -281,10 +281,12 @@ export type CommonError = {
 
 export type Result<T> =
 	| {
+			timestamp: string;
 			error: CommonError;
 			data?: never;
 	  }
 	| {
+			timestamp: string;
 			error?: never;
 			data: T;
 	  };
