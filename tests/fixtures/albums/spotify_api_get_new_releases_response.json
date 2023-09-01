@@ -1,4 +1,5 @@
 {
+  "error": null,
   "albums": {
     "href": "https://api.spotify.com/v1/browse/new-releases?country=SE&locale=*&offset=2&limit=5",
     "items": [
