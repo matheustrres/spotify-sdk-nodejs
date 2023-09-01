@@ -1,3 +1,4 @@
+import { type IHttpClient } from '../http-client';
 import {
 	type SpotifySeveralArtists,
 	type Result,
@@ -39,8 +40,11 @@ export class SpotifyArtistsResource
 	extends Resource
 	implements ISpotifyArtistsResource
 {
-	public constructor(spotifyTokenManager: SpotifyTokenManager) {
-		super(spotifyTokenManager);
+	public constructor(
+		spotifyTokenManager: SpotifyTokenManager,
+		httpClient: IHttpClient,
+	) {
+		super(spotifyTokenManager, httpClient);
 	}
 
 	/**

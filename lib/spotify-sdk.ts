@@ -1,3 +1,4 @@
+import { HttpClient, type IHttpClient } from './http-client';
 import { SpotifyAlbumsResource } from './resources/albums';
 import { SpotifyArtistsResource } from './resources/artists';
 import { SpotifyTracksResource } from './resources/tracks';
@@ -12,6 +13,8 @@ export type SpotifySDKOptions = {
  * Represents the main SpotifySDK
  */
 export class SpotifySDK {
+	private readonly httpClient: IHttpClient;
+
 	private readonly albumsResource: SpotifyAlbumsResource;
 	private readonly artistsResource: SpotifyArtistsResource;
 	private readonly tracksResource: SpotifyTracksResource;
@@ -25,15 +28,27 @@ export class SpotifySDK {
 	 * @param {String} options.clientId - The Spotify client id
 	 * @param {String} options.clientSecret - The Spotify client secret
 	 */
-	public constructor(options: SpotifySDKOptions) {
+	public constructor(options: SpotifySDKOptions, httpClient?: IHttpClient) {
+		this.httpClient = httpClient || new HttpClient();
+
 		this.spotifyTokenManager = new SpotifyTokenManager(
 			options.clientId,
 			options.clientSecret,
+			this.httpClient,
 		);
 
-		this.albumsResource = new SpotifyAlbumsResource(this.spotifyTokenManager);
-		this.artistsResource = new SpotifyArtistsResource(this.spotifyTokenManager);
-		this.tracksResource = new SpotifyTracksResource(this.spotifyTokenManager);
+		this.albumsResource = new SpotifyAlbumsResource(
+			this.spotifyTokenManager,
+			this.httpClient,
+		);
+		this.artistsResource = new SpotifyArtistsResource(
+			this.spotifyTokenManager,
+			this.httpClient,
+		);
+		this.tracksResource = new SpotifyTracksResource(
+			this.spotifyTokenManager,
+			this.httpClient,
+		);
 	}
 
 	/**

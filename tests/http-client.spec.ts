@@ -1,9 +1,9 @@
-import { type SpotifyApiResponse, makeGET, makePOST } from '../lib/request';
+import { HttpClient, type IHttpClient } from '../lib/http-client';
 import {
 	type SpotifyApiClientCredentials,
+	type SpotifyApiResponse,
 	type SpotifyArtist,
 } from '../lib/typings';
-import { SpotifyTokenManager } from '../lib/utils/token-manager';
 import spotifyApiGetArtistResponse from './fixtures/artists/spotify_api_get_artist_response.json';
 
 const mockFetchResponse = <T>(response: T): jest.Mock =>
@@ -13,43 +13,40 @@ const mockFetchResponse = <T>(response: T): jest.Mock =>
 		};
 	});
 
-describe('Request', (): void => {
+describe('HttpClient', (): void => {
+	let httpClient: IHttpClient;
+
 	const baseURL: string = 'https://api.spotify.com/v1';
 	const baseAuthURL: string = 'https://accounts.spotify.com/api';
 
-	let tokenManager: SpotifyTokenManager;
-	let authToken: string;
+	const authToken: string = 'Bearer <random_access_token>';
 
 	afterAll((): void => {
 		jest.clearAllMocks();
 	});
 
-	beforeAll(async (): Promise<void> => {
-		tokenManager = new SpotifyTokenManager(
-			process.env.SPOTIFY_CLIENT_ID as string,
-			process.env.SPOTIFY_CLIENT_SECRET as string,
-		);
-
-		authToken = await tokenManager.getAuthToken();
+	beforeAll((): void => {
+		httpClient = new HttpClient();
 	});
 
 	describe('X GET', (): void => {
 		it('should call GET with correct parameters', async (): Promise<void> => {
 			global.fetch = mockFetchResponse(spotifyApiGetArtistResponse);
 
-			await makeGET(`${baseURL}/artists/0TnOYISbd1XYRBk9myaseg`, {
+			await httpClient.GET(`${baseURL}/artists/0TnOYISbd1XYRBk9myaseg`, {
 				headers: {
 					Authorization: authToken,
 				},
 			});
 
-			expect(global.fetch).toHaveBeenCalledWith(
+			expect(global.fetch).toHaveBeenNthCalledWith(
+				1,
 				new URL(`${baseURL}/artists/0TnOYISbd1XYRBk9myaseg`),
 				{
-					method: 'GET',
 					headers: {
 						Authorization: authToken,
 					},
+					method: 'GET',
 				},
 			);
 		});
@@ -59,7 +56,7 @@ describe('Request', (): void => {
 				spotifyApiGetArtistResponse,
 			);
 
-			const response = await makeGET<SpotifyArtist>(
+			const response = await httpClient.GET<SpotifyArtist>(
 				`${baseURL}/artists/0TnOYISbd1XYRBk9myaseg`,
 				{
 					headers: {
@@ -79,11 +76,14 @@ describe('Request', (): void => {
 				},
 			});
 
-			const { error } = await makeGET(`${baseURL}/artists/fake-artist-id`, {
-				headers: {
-					Authorization: authToken,
+			const { error } = await httpClient.GET(
+				`${baseURL}/artists/fake-artist-id`,
+				{
+					headers: {
+						Authorization: authToken,
+					},
 				},
-			});
+			);
 
 			expect(error).toBeDefined();
 			expect(error!.message).toBe('invalid id');
@@ -95,12 +95,15 @@ describe('Request', (): void => {
 		it('should call POST with correct parameters', async (): Promise<void> => {
 			global.fetch = mockFetchResponse(null);
 
-			await makePOST(`${baseAuthURL}/token?grant_type=client_credentials`, {
-				headers: {
-					Authorization: `Basic <credentials>`,
-					'Content-Type': 'application/x-www-form-urlencoded',
+			await httpClient.POST(
+				`${baseAuthURL}/token?grant_type=client_credentials`,
+				{
+					headers: {
+						Authorization: `Basic <credentials>`,
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
 				},
-			});
+			);
 
 			expect(global.fetch).toHaveBeenCalledWith(
 				new URL(`${baseAuthURL}/token?grant_type=client_credentials`),
@@ -121,7 +124,7 @@ describe('Request', (): void => {
 				token_type: 'Bearer',
 			});
 
-			const response = await makePOST(
+			const response = await httpClient.POST(
 				`${baseAuthURL}/token?grant_type=client_credentials`,
 				{
 					headers: {

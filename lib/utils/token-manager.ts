@@ -1,4 +1,4 @@
-import { makePOST } from '../request';
+import { type IHttpClient } from '../http-client';
 import { type SpotifyApiClientCredentials } from '../typings';
 
 export interface ISpotifyTokenManager {
@@ -6,18 +6,22 @@ export interface ISpotifyTokenManager {
 }
 
 export class SpotifyTokenManager implements ISpotifyTokenManager {
+	private readonly httpClient: IHttpClient;
+
 	private readonly basicAuthCredentials: string; // base64 encoded credential
 
 	private authToken: string; // Bearer <token>
 	private tokenExpirationDate: number;
 
-	constructor(clientId: string, clientSecret: string) {
+	constructor(clientId: string, clientSecret: string, httpClient: IHttpClient) {
 		this.basicAuthCredentials = Buffer.from(
 			`${clientId}:${clientSecret}`,
 		).toString('base64');
 
 		this.tokenExpirationDate = 0;
 		this.authToken = '';
+
+		this.httpClient = httpClient;
 	}
 
 	public async getAuthToken(): Promise<string> {
@@ -35,7 +39,7 @@ export class SpotifyTokenManager implements ISpotifyTokenManager {
 	}
 
 	private async fetchClientToken(): Promise<void> {
-		const response = await makePOST<SpotifyApiClientCredentials>(
+		const response = await this.httpClient.POST<SpotifyApiClientCredentials>(
 			'https://accounts.spotify.com/api/token?grant_type=client_credentials',
 			{
 				headers: {

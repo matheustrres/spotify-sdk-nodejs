@@ -1,10 +1,11 @@
-import { makeGET, type SpotifyApiResponse } from '../request';
-import { type Result } from '../typings';
+import { type IHttpClient } from '../http-client';
+import { type SpotifyApiResponse, type Result } from '../typings';
 import { type SpotifyTokenManager } from '../utils/token-manager';
 
 export class Resource {
 	public constructor(
 		protected readonly spotifyTokenManager: SpotifyTokenManager,
+		private readonly httpClient: IHttpClient,
 	) {}
 
 	protected async makeRequest<T>(
@@ -12,7 +13,7 @@ export class Resource {
 	): Promise<SpotifyApiResponse<T>> {
 		const authToken: string = await this.spotifyTokenManager.getAuthToken();
 
-		return makeGET<T>(`https://api.spotify.com/v1/${endpoint}`, {
+		return this.httpClient.GET<T>(`https://api.spotify.com/v1/${endpoint}`, {
 			headers: {
 				Authorization: authToken,
 			},

@@ -290,3 +290,9 @@ export type Result<T> =
 			error?: never;
 			data: T;
 	  };
+
+export type SpotifyApiResponse<T = any> =
+	| {
+			error: CommonError;
+	  }
+	| ({ error?: null } & T);
