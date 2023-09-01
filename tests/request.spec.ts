@@ -1,5 +1,8 @@
-import { type SpotifyApiResponse, makeGET } from '../lib/request';
-import { type SpotifyArtist } from '../lib/typings';
+import { type SpotifyApiResponse, makeGET, makePOST } from '../lib/request';
+import {
+	type SpotifyApiClientCredentials,
+	type SpotifyArtist,
+} from '../lib/typings';
 import { SpotifyTokenManager } from '../lib/utils/token-manager';
 import spotifyApiGetArtistResponse from './fixtures/artists/spotify_api_get_artist_response.json';
 
@@ -12,6 +15,7 @@ const mockFetchResponse = <T>(response: T): jest.Mock =>
 
 describe('Request', (): void => {
 	const baseURL: string = 'https://api.spotify.com/v1';
+	const baseAuthURL: string = 'https://accounts.spotify.com/api';
 
 	let tokenManager: SpotifyTokenManager;
 	let authToken: string;
@@ -84,6 +88,34 @@ describe('Request', (): void => {
 			expect(error).toBeDefined();
 			expect(error!.message).toBe('invalid id');
 			expect(error!.status).toBe(400);
+		});
+	});
+
+	describe('X POST', (): void => {
+		it('should call POST with correct parameters', async (): Promise<void> => {
+			global.fetch = mockFetchResponse<SpotifyApiClientCredentials>({
+				access_token: 'random_access_token',
+				expires_in: 3600,
+				token_type: 'Bearer',
+			});
+
+			await makePOST(`${baseAuthURL}/token?grant_type=client_credentials`, {
+				headers: {
+					Authorization: authToken,
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+			});
+
+			expect(global.fetch).toHaveBeenCalledWith(
+				new URL(`${baseAuthURL}/token?grant_type=client_credentials`),
+				{
+					method: 'POST',
+					headers: {
+						Authorization: authToken,
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
+				},
+			);
 		});
 	});
 });
