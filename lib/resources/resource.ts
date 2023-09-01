@@ -1,6 +1,5 @@
-import { type Result } from 'lib/typings';
-
 import { makeGET, type SpotifyApiResponse } from '../request';
+import { type Result } from '../typings';
 import { type SpotifyTokenManager } from '../utils/token-manager';
 
 export class Resource {
