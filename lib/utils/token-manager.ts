@@ -46,9 +46,7 @@ export class SpotifyTokenManager implements ISpotifyTokenManager {
 		);
 
 		if (response.error) {
-			throw new Error(
-				`Error while fetching client token: "${response.error.message}"`,
-			);
+			throw new Error(`Error while fetching client token: "${response.error}"`);
 		}
 
 		this.authToken = `${response.token_type} ${response.access_token}`;
