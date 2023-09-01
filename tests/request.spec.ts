@@ -93,11 +93,7 @@ describe('Request', (): void => {
 
 	describe('X POST', (): void => {
 		it('should call POST with correct parameters', async (): Promise<void> => {
-			global.fetch = mockFetchResponse<SpotifyApiClientCredentials>({
-				access_token: 'random_access_token',
-				expires_in: 3600,
-				token_type: 'Bearer',
-			});
+			global.fetch = mockFetchResponse(null);
 
 			await makePOST(`${baseAuthURL}/token?grant_type=client_credentials`, {
 				headers: {
@@ -116,6 +112,31 @@ describe('Request', (): void => {
 					},
 				},
 			);
+		});
+
+		it('should return data on success', async (): Promise<void> => {
+			global.fetch = mockFetchResponse<SpotifyApiClientCredentials>({
+				access_token: 'random_access_token',
+				expires_in: 3600,
+				token_type: 'Bearer',
+			});
+
+			const response = await makePOST(
+				`${baseAuthURL}/token?grant_type=client_credentials`,
+				{
+					headers: {
+						Authorization: authToken,
+						'Content-Type': 'application/x-www-form-urlencoded',
+					},
+				},
+			);
+
+			expect(response.error).toBe(undefined);
+			expect(response).toEqual({
+				access_token: 'random_access_token',
+				expires_in: 3600,
+				token_type: 'Bearer',
+			});
 		});
 	});
 });
