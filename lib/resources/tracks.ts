@@ -6,6 +6,7 @@ import {
 	type SpotifyTrackAudioAnalysis,
 	type SpotifyTracksAudioFeatures,
 } from '../typings';
+import { generateQParams } from '../utils/gen-q-params';
 import { type SpotifyTokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
@@ -51,8 +52,14 @@ export class SpotifyTracksResource
 		tracksIds: string[],
 		market: string = 'US',
 	): Promise<Result<SpotifySeveralTracks>> {
+		const endpoint: string = 'tracks';
+		const qParams: string = generateQParams<SeveralTracksQParams>({
+			market,
+			ids: tracksIds.join(','),
+		});
+
 		const spotifyApiResponse = await this.makeRequest<SpotifySeveralTracks>(
-			`tracks?ids=${tracksIds.join(',')}&market=${market}`,
+			`${endpoint}?${qParams}`,
 		);
 
 		return this.reply(spotifyApiResponse);
@@ -127,3 +134,8 @@ export class SpotifyTracksResource
 		return this.reply(spotifyApiResponse);
 	}
 }
+
+type SeveralTracksQParams = {
+	ids: string;
+	market?: string;
+};

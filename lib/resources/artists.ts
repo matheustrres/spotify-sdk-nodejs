@@ -74,20 +74,15 @@ export class SpotifyArtistsResource
 		includeGroups?: Array<GroupsToInclude>,
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Result<SpotifyArtistAlbums>> {
-		const endpoint: string = `artists/${artistId}/albums?market=${market}`;
-
-		const qParam: string = generateQParams<
-			SpotifyApiPaginationOptions & {
-				include_groups: Array<GroupsToInclude>;
-			}
-		>({
+		const endpoint: string = `artists/${artistId}/albums`;
+		const qParams: string = generateQParams<ArtistAlbumsQParams>({
+			market,
 			include_groups: includeGroups?.join(','),
-			limit: pagOptions?.limit,
-			offset: pagOptions?.offset,
+			...pagOptions,
 		});
 
 		const spotifyApiResponse = await this.makeRequest<SpotifyArtistAlbums>(
-			`${endpoint}&${qParam}`,
+			`${endpoint}?${qParams}`,
 		);
 
 		return this.reply(spotifyApiResponse);
@@ -127,3 +122,8 @@ export class SpotifyArtistsResource
 		return this.reply(spotifyApiResponse);
 	}
 }
+
+type ArtistAlbumsQParams = SpotifyApiPaginationOptions & {
+	market?: string;
+	include_groups: string;
+};

@@ -70,15 +70,15 @@ export class SpotifyAlbumsResource
 		market: string = 'US',
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Result<SpotifyAlbumTracks>> {
-		let endpoint: string = `albums/${albumId}/tracks?market=${market}`;
+		const endpoint: string = `albums/${albumId}/tracks`;
+		const qParams: string = generateQParams<AlbumTracksQParams>({
+			market,
+			...pagOptions,
+		});
 
-		if (pagOptions)
-			endpoint += `&${generateQParams<SpotifyApiPaginationOptions>(
-				pagOptions,
-			)}`;
-
-		const spotifyApiResponse =
-			await this.makeRequest<SpotifyAlbumTracks>(endpoint);
+		const spotifyApiResponse = await this.makeRequest<SpotifyAlbumTracks>(
+			`${endpoint}?${qParams}`,
+		);
 
 		return this.reply(spotifyApiResponse);
 	}
@@ -96,15 +96,15 @@ export class SpotifyAlbumsResource
 		country: string = 'US',
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Result<SpotifyAlbumReleases>> {
-		let endpoint: string = `browse/new-releases?country=${country}`;
+		const endpoint: string = `browse/new-releases`;
+		const qParams: string = generateQParams<NewReleasesQParams>({
+			country,
+			...pagOptions,
+		});
 
-		if (pagOptions)
-			endpoint += `&${generateQParams<SpotifyApiPaginationOptions>(
-				pagOptions,
-			)}`;
-
-		const spotifyApiResponse =
-			await this.makeRequest<SpotifyAlbumReleases>(endpoint);
+		const spotifyApiResponse = await this.makeRequest<SpotifyAlbumReleases>(
+			`${endpoint}?${qParams}`,
+		);
 
 		return this.reply(spotifyApiResponse);
 	}
@@ -120,10 +120,29 @@ export class SpotifyAlbumsResource
 		albumsIds: string[],
 		market: string = 'US',
 	): Promise<Result<SpotifySeveralAlbums>> {
+		const endpoint: string = 'albums';
+		const qParams: string = generateQParams<SeveralAlbumsQParams>({
+			market,
+			ids: albumsIds.slice(0, 19).join(','),
+		});
+
 		const spotifyApiResponse = await this.makeRequest<SpotifySeveralAlbums>(
-			`albums?ids=${albumsIds.slice(0, 19).join(',')}&market=${market}`,
+			`${endpoint}?${qParams}`,
 		);
 
 		return this.reply(spotifyApiResponse);
 	}
 }
+
+type AlbumTracksQParams = SpotifyApiPaginationOptions & {
+	market?: string;
+};
+
+type NewReleasesQParams = SpotifyApiPaginationOptions & {
+	country?: string;
+};
+
+type SeveralAlbumsQParams = {
+	ids: string;
+	market?: string;
+};
