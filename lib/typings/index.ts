@@ -81,7 +81,7 @@ export type SpotifyAlbumArtist = Omit<
 export type SpotifyArtist = {
 	external_urls: SpotifyExternalURLs;
 	followers: {
-		href: string;
+		href: string | null;
 		total: number;
 	};
 	genres: Array<string>;
