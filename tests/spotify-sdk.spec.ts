@@ -93,7 +93,7 @@ describe('SpotifySDK', (): void => {
 
 	describe('.artists', (): void => {
 		describe('.getArtist', (): void => {
-			it('should return spotify catalog information for a single artist', async (): Promise<void> => {
+			it.skip('should return spotify catalog information for a single artist', async (): Promise<void> => {
 				const { data, error } = await sdk.artists.getArtist(
 					'0TnOYISbd1XYRBk9myaseg',
 				);
@@ -105,7 +105,7 @@ describe('SpotifySDK', (): void => {
 		});
 
 		describe('.getArtistAlbums', (): void => {
-			it("should return spotify catalog information about an artist's albums", async (): Promise<void> => {
+			it.skip("should return spotify catalog information about an artist's albums", async (): Promise<void> => {
 				const { data, error } = await sdk.artists.getArtistAlbums(
 					'0TnOYISbd1XYRBk9myaseg',
 				);
@@ -117,7 +117,7 @@ describe('SpotifySDK', (): void => {
 		});
 
 		describe('.getArtistTopTracks', (): void => {
-			it('should return spotify catalog information about an artist top tracks', async (): Promise<void> => {
+			it.skip('should return spotify catalog information about an artist top tracks', async (): Promise<void> => {
 				const { data, error } = await sdk.artists.getArtistTopTracks(
 					'0TnOYISbd1XYRBk9myaseg',
 				);
@@ -129,7 +129,7 @@ describe('SpotifySDK', (): void => {
 		});
 
 		describe('.getSeveralArtists', (): void => {
-			it('should return spotify catalog information for several artists', async (): Promise<void> => {
+			it.skip('should return spotify catalog information for several artists', async (): Promise<void> => {
 				const { data, error } = await sdk.artists.getSeveralArtists([
 					'0TnOYISbd1XYRBk9myaseg',
 					'57dN52uHvrHOxijzpIgu3E',

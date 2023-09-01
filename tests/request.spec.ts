@@ -66,5 +66,24 @@ describe('Request', (): void => {
 
 			expect(response).toMatchObject(spotifyApiGetArtistResponse);
 		});
+
+		it('should return an error when providing invalid parameters', async (): Promise<void> => {
+			global.fetch = mockFetchResponse<SpotifyApiResponse>({
+				error: {
+					message: 'invalid id',
+					status: 400,
+				},
+			});
+
+			const { error } = await makeGET(`${baseURL}/artists/fake-artist-id`, {
+				headers: {
+					Authorization: authToken,
+				},
+			});
+
+			expect(error).toBeDefined();
+			expect(error!.message).toBe('invalid id');
+			expect(error!.status).toBe(400);
+		});
 	});
 });
