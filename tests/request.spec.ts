@@ -97,7 +97,7 @@ describe('Request', (): void => {
 
 			await makePOST(`${baseAuthURL}/token?grant_type=client_credentials`, {
 				headers: {
-					Authorization: authToken,
+					Authorization: `Basic <credentials>`,
 					'Content-Type': 'application/x-www-form-urlencoded',
 				},
 			});
@@ -107,7 +107,7 @@ describe('Request', (): void => {
 				{
 					method: 'POST',
 					headers: {
-						Authorization: authToken,
+						Authorization: `Basic <credentials>`,
 						'Content-Type': 'application/x-www-form-urlencoded',
 					},
 				},
@@ -125,7 +125,7 @@ describe('Request', (): void => {
 				`${baseAuthURL}/token?grant_type=client_credentials`,
 				{
 					headers: {
-						Authorization: authToken,
+						Authorization: `Basic <credentials>`,
 						'Content-Type': 'application/x-www-form-urlencoded',
 					},
 				},
