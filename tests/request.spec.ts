@@ -1,4 +1,5 @@
-import { makeGET } from '../lib/request';
+import { type SpotifyApiResponse, makeGET } from '../lib/request';
+import { type SpotifyArtist } from '../lib/typings';
 import { SpotifyTokenManager } from '../lib/utils/token-manager';
 import spotifyApiGetArtistResponse from './fixtures/artists/spotify_api_get_artist_response.json';
 
@@ -47,6 +48,23 @@ describe('Request', (): void => {
 					},
 				},
 			);
+		});
+
+		it('should return data on success', async (): Promise<void> => {
+			global.fetch = mockFetchResponse<SpotifyApiResponse<SpotifyArtist>>(
+				spotifyApiGetArtistResponse,
+			);
+
+			const response = await makeGET<SpotifyArtist>(
+				`${baseURL}/artists/0TnOYISbd1XYRBk9myaseg`,
+				{
+					headers: {
+						Authorization: authToken,
+					},
+				},
+			);
+
+			expect(response).toMatchObject(spotifyApiGetArtistResponse);
 		});
 	});
 });
