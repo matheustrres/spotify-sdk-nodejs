@@ -3,9 +3,6 @@ import { type MockProxy, mock } from 'jest-mock-extended';
 import { type IHttpClient } from '../lib/http-client';
 import { SpotifySDK } from '../lib/spotify-sdk';
 // ------------------
-// fixtures
-// ------------------
-// ------------------
 // fixtures/albums
 // ------------------
 import spotifyApiGetAlbumResponse from './fixtures/albums/spotify_api_get_album_response.json';
