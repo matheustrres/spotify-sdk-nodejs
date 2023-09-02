@@ -15,9 +15,18 @@ export type SpotifySDKOptions = {
 export class SpotifySDK {
 	private readonly httpClient: IHttpClient;
 
-	private readonly albumsResource: SpotifyAlbumsResource;
-	private readonly artistsResource: SpotifyArtistsResource;
-	private readonly tracksResource: SpotifyTracksResource;
+	/**
+	 * The Spotify Albums resource manager
+	 */
+	public readonly albums: SpotifyAlbumsResource;
+	/**
+	 * The Spotify Artists resource manager
+	 */
+	public readonly artists: SpotifyArtistsResource;
+	/**
+	 * The Spotify Tracks resource manager
+	 */
+	public readonly tracks: SpotifyTracksResource;
 
 	private readonly spotifyTokenManager: SpotifyTokenManager;
 
@@ -37,38 +46,17 @@ export class SpotifySDK {
 			this.httpClient,
 		);
 
-		this.albumsResource = new SpotifyAlbumsResource(
+		this.albums = new SpotifyAlbumsResource(
 			this.spotifyTokenManager,
 			this.httpClient,
 		);
-		this.artistsResource = new SpotifyArtistsResource(
+		this.artists = new SpotifyArtistsResource(
 			this.spotifyTokenManager,
 			this.httpClient,
 		);
-		this.tracksResource = new SpotifyTracksResource(
+		this.tracks = new SpotifyTracksResource(
 			this.spotifyTokenManager,
 			this.httpClient,
 		);
-	}
-
-	/**
-	 * The Spotify Albums resource manager
-	 */
-	public get albums(): SpotifyAlbumsResource {
-		return this.albumsResource;
-	}
-
-	/**
-	 * The Spotify Artists resource manager
-	 */
-	public get artists(): SpotifyArtistsResource {
-		return this.artistsResource;
-	}
-
-	/**
-	 * The Spotify Tracks resource manager
-	 */
-	public get tracks(): SpotifyTracksResource {
-		return this.tracksResource;
 	}
 }
