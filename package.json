@@ -6,8 +6,8 @@
   },
   "description": "An unofficial, easy-to-use, user-friendly and no dependencies Node.js SDK for Spotify Web API",
   "version": "1.0.0",
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
+  "main": "./dist/lib/index.js",
+  "typings": "./dist/lib/index.d.ts",
   "directories": {
     "lib": "lib"
   },
