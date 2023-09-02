@@ -3,7 +3,6 @@
     "target": "es2022",
     "moduleResolution": "node",
     "module": "commonjs",
-    "declaration": true,
     "baseUrl": ".",
     "resolveJsonModule": true,
     "strict": true,
