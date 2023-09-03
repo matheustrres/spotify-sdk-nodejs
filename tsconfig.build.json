@@ -8,13 +8,10 @@
     ],
     "sourceMap": true,
     "declaration": true,
-    "removeComments": true,
   },
-  "include": [
-    "lib/**/*"
-  ],
   "exclude": [
     "node_modules",
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "jest.config.ts"
   ]
 }
