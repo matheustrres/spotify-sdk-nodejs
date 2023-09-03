@@ -1,0 +1,27 @@
+# Node
+node_modules
+package-lock.json
+yarn.lock
+
+# Jest
+coverage
+jest.config.ts
+tests
+
+# Linters
+.eslintrc
+.eslintignore
+.prettierrc
+.lintstagedrc
+
+# Env 
+.env
+
+# Husky 
+.husky
+
+# IDEs
+.vscode
+
+# TSConfig
+tsconfig*.json
