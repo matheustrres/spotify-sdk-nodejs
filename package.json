@@ -8,10 +8,13 @@
   "version": "1.0.0",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
+  "license": "MIT",
   "directories": {
     "lib": "lib"
   },
-  "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/matheustrres/spotify-sdk-node.git"
@@ -20,7 +23,7 @@
     "url": "https://github.com/matheustrres/spotify-sdk-node/issues"
   },
   "scripts": {
-    "build": "tsc --build ./tsconfig.build.json",
+    "build": "tsc --build tsconfig.build.json",
     "bundle": "npm run build && npm pack",
     "publish": "npm publish --access public",
     "test": "jest --runInBand --no-cache --verbose --passWithNoTests",
