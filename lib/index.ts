@@ -1,4 +1,5 @@
-import { SpotifySDK } from './lib/spotify-sdk';
+import { version } from '../package.json';
+import { SpotifySDK } from './spotify-sdk';
 import type {
 	Result,
 	SpotifyAlbum,
@@ -27,8 +28,7 @@ import type {
 	SpotifyTrackAudioFeatures,
 	SpotifyTrackBase,
 	SpotifyTracksAudioFeatures,
-} from './lib/typings';
-import { version } from './package.json';
+} from './typings';
 
 const VERSION: string = version;
 

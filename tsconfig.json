@@ -3,7 +3,7 @@
     "target": "es2022",
     "moduleResolution": "node",
     "module": "commonjs",
-    "rootDir": "./",
+    "rootDir": ".",
     "resolveJsonModule": true,
     "strict": true,
     "typeRoots": [
