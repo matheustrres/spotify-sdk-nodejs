@@ -54,7 +54,7 @@ export class SpotifyTracksResource
 	 */
 	public async getSeveralTracks(
 		tracksIds: string[],
-		market: string = 'US',
+		market?: string,
 	): Promise<Result<SpotifySeveralTracks>> {
 		const endpoint: string = 'tracks';
 		const qParams: string = generateQParams<SeveralTracksQParams>({
@@ -78,11 +78,13 @@ export class SpotifyTracksResource
 	 */
 	public async getTrack(
 		trackId: string,
-		market: string = 'US',
+		market?: string,
 	): Promise<Result<SpotifyTrack>> {
-		const spotifyApiResponse = await this.makeRequest<SpotifyTrack>(
-			`tracks/${trackId}?market=${market}`,
-		);
+		let endpoint: string = `tracks/${trackId}`;
+
+		if (market) endpoint += `?market=${market}`;
+
+		const spotifyApiResponse = await this.makeRequest<SpotifyTrack>(endpoint);
 
 		return this.reply(spotifyApiResponse);
 	}

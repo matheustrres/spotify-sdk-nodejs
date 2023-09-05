@@ -71,7 +71,7 @@ export class SpotifyAlbumsResource
 	 */
 	public async getAlbumTracks(
 		albumId: string,
-		market: string = 'US',
+		market?: string,
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Result<SpotifyAlbumTracks>> {
 		const endpoint: string = `albums/${albumId}/tracks`;
@@ -97,7 +97,7 @@ export class SpotifyAlbumsResource
 	 * @returns {Promise<Response<SpotifyAlbumReleases>>}
 	 */
 	public async getNewReleases(
-		country: string = 'US',
+		country?: string,
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Result<SpotifyAlbumReleases>> {
 		const endpoint: string = `browse/new-releases`;
@@ -122,7 +122,7 @@ export class SpotifyAlbumsResource
 	 */
 	public async getSeveralAlbums(
 		albumsIds: string[],
-		market: string = 'US',
+		market?: string,
 	): Promise<Result<SpotifySeveralAlbums>> {
 		const endpoint: string = 'albums';
 		const qParams: string = generateQParams<SeveralAlbumsQParams>({

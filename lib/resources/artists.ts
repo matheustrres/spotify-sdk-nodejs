@@ -74,7 +74,7 @@ export class SpotifyArtistsResource
 	 */
 	public async getArtistAlbums(
 		artistId: string,
-		market: string = 'US',
+		market?: string,
 		includeGroups?: Array<GroupsToInclude>,
 		pagOptions?: SpotifyApiPaginationOptions,
 	): Promise<Result<SpotifyArtistAlbums>> {
@@ -101,11 +101,14 @@ export class SpotifyArtistsResource
 	 */
 	public async getArtistTopTracks(
 		artistId: string,
-		market: string = 'US',
+		market?: string,
 	): Promise<Result<SpotifyArtistTopTracks>> {
-		const spotifyApiResponse = await this.makeRequest<SpotifyArtistTopTracks>(
-			`artists/${artistId}/top-tracks?market=${market}`,
-		);
+		let endpoint: string = `artists/${artistId}/top-tracks`;
+
+		if (market) endpoint += `?market=${market}`;
+
+		const spotifyApiResponse =
+			await this.makeRequest<SpotifyArtistTopTracks>(endpoint);
 
 		return this.reply(spotifyApiResponse);
 	}
