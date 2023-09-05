@@ -1,6 +1,7 @@
 import { HttpClient, type IHttpClient } from './http-client';
 import { SpotifyAlbumsResource } from './resources/albums';
 import { SpotifyArtistsResource } from './resources/artists';
+import { SpotifyPlaylistsResource } from './resources/playlists';
 import { SpotifyTracksResource } from './resources/tracks';
 import { SpotifyTokenManager } from './utils/token-manager';
 
@@ -23,6 +24,10 @@ export class SpotifySDK {
 	 * The Spotify Artists resource manager
 	 */
 	public readonly artists: SpotifyArtistsResource;
+	/**
+	 * The Spotify Playlists resource manager
+	 */
+	public readonly playlists: SpotifyPlaylistsResource;
 	/**
 	 * The Spotify Tracks resource manager
 	 */
@@ -51,6 +56,10 @@ export class SpotifySDK {
 			this.httpClient,
 		);
 		this.artists = new SpotifyArtistsResource(
+			this.spotifyTokenManager,
+			this.httpClient,
+		);
+		this.playlists = new SpotifyPlaylistsResource(
 			this.spotifyTokenManager,
 			this.httpClient,
 		);
