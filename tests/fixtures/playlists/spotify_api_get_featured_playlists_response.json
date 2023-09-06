@@ -1,0 +1,122 @@
+{
+  "error": null,
+  "message": "Pra curtir a quarta-feira",
+  "playlists": {
+    "href": "https://api.spotify.com/v1/browse/featured-playlists?country=BR&locale=pt_br&timestamp=2023-09-06T17%3A29%3A35&offset=0&limit=3",
+    "items": [
+      {
+        "collaborative": false,
+        "description": "De la CALLE a la CIMA con Mora.",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DWZjqjZMudx9T"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWZjqjZMudx9T",
+        "id": "37i9dQZF1DWZjqjZMudx9T",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f000000038eb7314fa80bdd522fd452b7",
+            "width": null
+          }
+        ],
+        "name": "MANSIÓN REGGAETÓN",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTY5MzgzODU3NCwwMDAwMDAwMDgwMTRiYmMzN2EwMjM5ZDU0ZWFhMzg1YWFlZDRlMjZi",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWZjqjZMudx9T/tracks",
+          "total": 50
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DWZjqjZMudx9T"
+      },
+      {
+        "collaborative": false,
+        "description": "Novidades do Funk para incendiar o baile! Foto: DJ BOY, MC Tuto, MC Marks, MC Joãozinho VT, MC Vine7, Gabb MC, MC Ryan SP",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DWYYeOy9vs7I5"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWYYeOy9vs7I5",
+        "id": "37i9dQZF1DWYYeOy9vs7I5",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f0000000305f92e4cb0d243ab1743909d",
+            "width": null
+          }
+        ],
+        "name": "Bonde do Funk",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTY5MzU3NjE4NywwMDAwMDAwMGUwMGI1OTA0MzFjMGE2YjQzOTQwYTI0YzM2MDM4NjZm",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DWYYeOy9vs7I5/tracks",
+          "total": 80
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DWYYeOy9vs7I5"
+      },
+      {
+        "collaborative": false,
+        "description": "Clássicos para embalar o seu coração sertanejo. Foto: Chitãozinho & Xororó",
+        "external_urls": {
+          "spotify": "https://open.spotify.com/playlist/37i9dQZF1DX7IK76Iw6baR"
+        },
+        "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX7IK76Iw6baR",
+        "id": "37i9dQZF1DX7IK76Iw6baR",
+        "images": [
+          {
+            "height": null,
+            "url": "https://i.scdn.co/image/ab67706f00000003abae4372ee11bd331e934c74",
+            "width": null
+          }
+        ],
+        "name": "Clássicos Sertanejos",
+        "owner": {
+          "display_name": "Spotify",
+          "external_urls": {
+            "spotify": "https://open.spotify.com/user/spotify"
+          },
+          "href": "https://api.spotify.com/v1/users/spotify",
+          "id": "spotify",
+          "type": "user",
+          "uri": "spotify:user:spotify"
+        },
+        "primary_color": null,
+        "public": null,
+        "snapshot_id": "MTY4NzQ4OTM4MCwwMDAwMDAwMDFkYjE3MGUwNzk3MTQzNTI1ZmVkOGQxYzM4NGQ4MDFl",
+        "tracks": {
+          "href": "https://api.spotify.com/v1/playlists/37i9dQZF1DX7IK76Iw6baR/tracks",
+          "total": 50
+        },
+        "type": "playlist",
+        "uri": "spotify:playlist:37i9dQZF1DX7IK76Iw6baR"
+      }
+    ],
+    "limit": 3,
+    "next": "https://api.spotify.com/v1/browse/featured-playlists?country=BR&locale=pt_br&timestamp=2023-09-06T17%3A29%3A35&offset=3&limit=3",
+    "offset": 0,
+    "previous": null,
+    "total": 9
+  }
+}

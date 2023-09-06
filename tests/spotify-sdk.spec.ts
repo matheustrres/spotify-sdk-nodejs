@@ -16,11 +16,12 @@ import spotifyApiGetArtistAlbumsResponse from './fixtures/artists/spotify_api_ge
 import spotifyApiGetArtistResponse from './fixtures/artists/spotify_api_get_artist_response.json';
 import spotifyApiGetArtistTopTracksResponse from './fixtures/artists/spotify_api_get_artist_top_tracks_response.json';
 import spotifyApiGetSeveralArtistsResponse from './fixtures/artists/spotify_api_get_several_artists_response.json';
-import spotifyApiGetPlaylistResponse from './fixtures/playlists/spotify_api_get_playlist_response.json';
-import spotifyApiClientCredentialsResponse from './fixtures/spotify_api_client_credentials_response.json';
 // ------------------
 // fixtures/playlists
 // ------------------
+import spotifyApiGetFeaturedPlaylistsResponse from './fixtures/playlists/spotify_api_get_featured_playlists_response.json';
+import spotifyApiGetPlaylistResponse from './fixtures/playlists/spotify_api_get_playlist_response.json';
+import spotifyApiClientCredentialsResponse from './fixtures/spotify_api_client_credentials_response.json';
 // ------------------
 // fixtures/tracks
 // ------------------
@@ -48,6 +49,7 @@ describe('SpotifySDK', (): void => {
 			.mockResolvedValueOnce(spotifyApiGetArtistTopTracksResponse)
 			.mockResolvedValueOnce(spotifyApiGetSeveralArtistsResponse)
 			.mockResolvedValueOnce(spotifyApiGetPlaylistResponse)
+			.mockResolvedValueOnce(spotifyApiGetFeaturedPlaylistsResponse)
 			.mockResolvedValueOnce(spotifyApiGetSeveralTracksResponse)
 			.mockResolvedValueOnce(spotifyApiGetTrackResponse)
 			.mockResolvedValueOnce(spotifyApiGetTrackAudioFeatures)
@@ -174,7 +176,7 @@ describe('SpotifySDK', (): void => {
 
 	describe('.playlists', (): void => {
 		describe('.getPlaylist', (): void => {
-			it('should return a plsylist', async (): Promise<void> => {
+			it('should return a playlist', async (): Promise<void> => {
 				const result = await sdk.playlists.getPlaylist(
 					'3cEYpjA9oz9GiPac4AsH4n',
 				);
@@ -182,6 +184,25 @@ describe('SpotifySDK', (): void => {
 				expect(result.error).toBe(undefined);
 				expect(result.timestamp).toBeDefined();
 				expect(result.data).toMatchObject(spotifyApiGetPlaylistResponse);
+			});
+		});
+
+		describe('.getFeaturedPlaylists', (): void => {
+			it('should return a list of Spotify featured playlists', async (): Promise<void> => {
+				const result = await sdk.playlists.getFeaturedPlaylists(
+					'BR',
+					'pt_BR',
+					undefined,
+					{
+						limit: 3,
+					},
+				);
+
+				expect(result.error).toBe(undefined);
+				expect(result.timestamp).toBeDefined();
+				expect(result.data).toMatchObject(
+					spotifyApiGetFeaturedPlaylistsResponse,
+				);
 			});
 		});
 	});
