@@ -11,7 +11,7 @@ export interface ISpotifyPlaylistsResource {
 		playlistId: string,
 		market?: string,
 		additionalTypes?: Array<PlaylistAdditionalTypes>,
-	): Promise<Result<any>>;
+	): Promise<Result<SpotifyPlaylist>>;
 }
 
 /**
@@ -31,11 +31,19 @@ export class SpotifyPlaylistsResource
 		super(spotifyTokenManager, httpClient);
 	}
 
+	/**
+	 * Get a playlist owned by a Spotify user
+	 *
+	 * @param {String} playlistId - The Spotify ID of the playlist
+	 * @param {String} [market] - An ISO-3166-1 alpha-2 country code (e.g. `US`, `BR`)
+	 * @param {Array<PlaylistAdditionalTypes>} [additionalTypes] - A list of item types to be added to the playlist
+	 * @returns {Promise<>}
+	 */
 	public async getPlaylist(
 		playlistId: string,
 		market?: string,
 		additionalTypes?: Array<PlaylistAdditionalTypes>,
-	) {
+	): Promise<Result<SpotifyPlaylist>> {
 		const endpoint: string = `playlists/${playlistId}`;
 		const qParams: string = generateQParams<PlaylistQParams>({
 			market,

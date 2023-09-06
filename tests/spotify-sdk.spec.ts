@@ -16,7 +16,11 @@ import spotifyApiGetArtistAlbumsResponse from './fixtures/artists/spotify_api_ge
 import spotifyApiGetArtistResponse from './fixtures/artists/spotify_api_get_artist_response.json';
 import spotifyApiGetArtistTopTracksResponse from './fixtures/artists/spotify_api_get_artist_top_tracks_response.json';
 import spotifyApiGetSeveralArtistsResponse from './fixtures/artists/spotify_api_get_several_artists_response.json';
+import spotifyApiGetPlaylistResponse from './fixtures/playlists/spotify_api_get_playlist_response.json';
 import spotifyApiClientCredentialsResponse from './fixtures/spotify_api_client_credentials_response.json';
+// ------------------
+// fixtures/playlists
+// ------------------
 // ------------------
 // fixtures/tracks
 // ------------------
@@ -43,6 +47,7 @@ describe('SpotifySDK', (): void => {
 			.mockResolvedValueOnce(spotifyApiGetArtistAlbumsResponse)
 			.mockResolvedValueOnce(spotifyApiGetArtistTopTracksResponse)
 			.mockResolvedValueOnce(spotifyApiGetSeveralArtistsResponse)
+			.mockResolvedValueOnce(spotifyApiGetPlaylistResponse)
 			.mockResolvedValueOnce(spotifyApiGetSeveralTracksResponse)
 			.mockResolvedValueOnce(spotifyApiGetTrackResponse)
 			.mockResolvedValueOnce(spotifyApiGetTrackAudioFeatures)
@@ -64,6 +69,7 @@ describe('SpotifySDK', (): void => {
 		expect(sdk).toBeDefined();
 		expect(sdk.albums).toBeDefined();
 		expect(sdk.artists).toBeDefined();
+		expect(sdk.playlists).toBeDefined();
 		expect(sdk.tracks).toBeDefined();
 	});
 
@@ -162,6 +168,20 @@ describe('SpotifySDK', (): void => {
 				expect(result.error).toBe(undefined);
 				expect(result.timestamp).toBeDefined();
 				expect(result.data).toMatchObject(spotifyApiGetSeveralArtistsResponse);
+			});
+		});
+	});
+
+	describe('.playlists', (): void => {
+		describe('.getPlaylist', (): void => {
+			it('should return a plsylist', async (): Promise<void> => {
+				const result = await sdk.playlists.getPlaylist(
+					'3cEYpjA9oz9GiPac4AsH4n',
+				);
+
+				expect(result.error).toBe(undefined);
+				expect(result.timestamp).toBeDefined();
+				expect(result.data).toMatchObject(spotifyApiGetPlaylistResponse);
 			});
 		});
 	});

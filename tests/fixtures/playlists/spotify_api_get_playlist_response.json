@@ -1,0 +1,185 @@
+{
+  "error": null,
+  "collaborative": false,
+  "description": "A playlist for testing pourposes",
+  "external_urls": {
+    "spotify": "https://open.spotify.com/playlist/3cEYpjA9oz9GiPac4AsH4n"
+  },
+  "followers": {
+    "href": null,
+    "total": 485
+  },
+  "href": "https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n",
+  "id": "3cEYpjA9oz9GiPac4AsH4n",
+  "images": [
+    [
+      null
+    ]
+  ],
+  "name": "Spotify Web API Testing playlist",
+  "owner": {
+    "display_name": "JMPerez²",
+    "external_urls": [
+      null
+    ],
+    "href": "https://api.spotify.com/v1/users/jmperezperez",
+    "id": "jmperezperez",
+    "type": "user",
+    "uri": "spotify:user:jmperezperez"
+  },
+  "primary_color": null,
+  "public": true,
+  "snapshot_id": "MTgsZWFmNmZiNTIzYTg4ODM0OGQzZWQzOGI4NTdkNTJlMjU0OWFkYTUxMA==",
+  "tracks": {
+    "href": "https://api.spotify.com/v1/playlists/3cEYpjA9oz9GiPac4AsH4n/tracks?offset=0&limit=100&locale=*",
+    "items": [
+      {
+        "added_at": "2015-01-15T12:39:22Z",
+        "added_by": {
+          "external_urls": [
+            null
+          ],
+          "href": "https://api.spotify.com/v1/users/jmperezperez",
+          "id": "jmperezperez",
+          "type": "user",
+          "uri": "spotify:user:jmperezperez"
+        },
+        "is_local": false,
+        "primary_color": null,
+        "track": {
+          "album": [
+            null
+          ],
+          "artists": [
+            null
+          ],
+          "available_markets": [
+            null
+          ],
+          "disc_number": 1,
+          "duration_ms": 376000,
+          "episode": false,
+          "explicit": false,
+          "external_ids": [
+            null
+          ],
+          "external_urls": [
+            null
+          ],
+          "href": "https://api.spotify.com/v1/tracks/4rzfv0JLZfVhOhbSQ8o5jZ",
+          "id": "4rzfv0JLZfVhOhbSQ8o5jZ",
+          "is_local": false,
+          "name": "Api",
+          "popularity": 2,
+          "preview_url": "https://p.scdn.co/mp3-preview/04599a1fe12ffac01d2bcb08340f84c0dd2cc335?cid=d624df82b6784aecbe8f20e73c52b7a6",
+          "track": true,
+          "track_number": 10,
+          "type": "track",
+          "uri": "spotify:track:4rzfv0JLZfVhOhbSQ8o5jZ"
+        },
+        "video_thumbnail": {
+          "url": null
+        }
+      },
+      {
+        "added_at": "2015-01-15T12:40:03Z",
+        "added_by": {
+          "external_urls": [
+            null
+          ],
+          "href": "https://api.spotify.com/v1/users/jmperezperez",
+          "id": "jmperezperez",
+          "type": "user",
+          "uri": "spotify:user:jmperezperez"
+        },
+        "is_local": false,
+        "primary_color": null,
+        "track": {
+          "album": [
+            null
+          ],
+          "artists": [
+            null
+          ],
+          "available_markets": [],
+          "disc_number": 1,
+          "duration_ms": 730066,
+          "episode": false,
+          "explicit": false,
+          "external_ids": [
+            null
+          ],
+          "external_urls": [
+            null
+          ],
+          "href": "https://api.spotify.com/v1/tracks/5o3jMYOSbaVz3tkgwhELSV",
+          "id": "5o3jMYOSbaVz3tkgwhELSV",
+          "is_local": false,
+          "name": "Is",
+          "popularity": 0,
+          "preview_url": null,
+          "track": true,
+          "track_number": 21,
+          "type": "track",
+          "uri": "spotify:track:5o3jMYOSbaVz3tkgwhELSV"
+        },
+        "video_thumbnail": {
+          "url": null
+        }
+      },
+      {
+        "added_at": "2015-01-15T12:40:03Z",
+        "added_by": {
+          "external_urls": [
+            null
+          ],
+          "href": "https://api.spotify.com/v1/users/jmperezperez",
+          "id": "jmperezperez",
+          "type": "user",
+          "uri": "spotify:user:jmperezperez"
+        },
+        "is_local": false,
+        "primary_color": null,
+        "track": {
+          "album": [
+            null
+          ],
+          "artists": [
+            null
+          ],
+          "available_markets": [],
+          "disc_number": 1,
+          "duration_ms": 730066,
+          "episode": false,
+          "explicit": false,
+          "external_ids": [
+            null
+          ],
+          "external_urls": [
+            null
+          ],
+          "href": "https://api.spotify.com/v1/tracks/5o3jMYOSbaVz3tkgwhELSV",
+          "id": "5o3jMYOSbaVz3tkgwhELSV",
+          "is_local": false,
+          "name": "Is",
+          "popularity": 0,
+          "preview_url": null,
+          "track": true,
+          "track_number": 21,
+          "type": "track",
+          "uri": "spotify:track:5o3jMYOSbaVz3tkgwhELSV"
+        },
+        "video_thumbnail": {
+          "url": null
+        }
+      }
+    ],
+    "limit": 100,
+    "next": null,
+    "offset": 0,
+    "previous": null,
+    "total": 3
+  },
+  "type": "playlist",
+  "uri": "spotify:playlist:3cEYpjA9oz9GiPac4AsH4n"
+}
