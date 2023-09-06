@@ -1,8 +1,18 @@
 import { type HttpClient } from '../http-client';
+import { type Result, type SpotifyPlaylist } from '../typings';
+import { generateQParams } from '../utils/gen-q-params';
 import { type SpotifyTokenManager } from '../utils/token-manager';
 import { Resource } from './resource';
 
-export interface ISpotifyPlaylistsResource {}
+type PlaylistAdditionalTypes = 'track' | 'episode';
+
+export interface ISpotifyPlaylistsResource {
+	getPlaylist(
+		playlistId: string,
+		market?: string,
+		additionalTypes?: Array<PlaylistAdditionalTypes>,
+	): Promise<Result<any>>;
+}
 
 /**
  * Represents the Spotify Playlists resource manager
@@ -20,4 +30,27 @@ export class SpotifyPlaylistsResource
 	) {
 		super(spotifyTokenManager, httpClient);
 	}
+
+	public async getPlaylist(
+		playlistId: string,
+		market?: string,
+		additionalTypes?: Array<PlaylistAdditionalTypes>,
+	) {
+		const endpoint: string = `playlists/${playlistId}`;
+		const qParams: string = generateQParams<PlaylistQParams>({
+			market,
+			additional_types: additionalTypes?.join(','),
+		});
+
+		const spotifyApiResponse = await this.makeRequest<SpotifyPlaylist>(
+			`${endpoint}?${qParams}`,
+		);
+
+		return this.reply(spotifyApiResponse);
+	}
 }
+
+type PlaylistQParams = {
+	market?: string;
+	additional_types?: string[];
+};

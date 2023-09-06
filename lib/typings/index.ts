@@ -27,6 +27,11 @@ export type SpotifyImage = {
 	width: number;
 };
 
+export type SpotifyFollowers = {
+	href: string | null;
+	total: number;
+};
+
 // --------------------- ALBUMS ---------------------
 
 export type SpotifyAlbumBase = {
@@ -80,10 +85,7 @@ export type SpotifyAlbumArtist = Omit<
 
 export type SpotifyArtist = {
 	external_urls: SpotifyExternalURLs;
-	followers: {
-		href: string | null;
-		total: number;
-	};
+	followers: SpotifyFollowers;
 	genres: Array<string>;
 	href: string;
 	id: string;
@@ -113,6 +115,59 @@ export type SpotifyArtistTopTracks = {
 			is_playable: boolean;
 		}
 	>;
+};
+
+// --------------------- PLAYLISTS ---------------------
+
+export type SpotifyPlaylist = {
+	collaborative: boolean;
+	description: string;
+	external_urls: SpotifyExternalURLs;
+	followers: SpotifyFollowers;
+	href: string;
+	id: string;
+	images: Array<SpotifyImage>;
+	name: string;
+	owner: {
+		display_name: string;
+		external_urls: SpotifyExternalURLs;
+		href: string;
+		id: string;
+		type: string;
+		uri: string;
+	};
+	primary_color: string | null;
+	public: boolean;
+	snapshot_id: string;
+	tracks: SpotifyResultWithItems<SpotifyPlaylistItems>;
+	type: string;
+	uri: string;
+};
+
+export type SpotifyPlaylistItems = {
+	added_at: string;
+	added_by: {
+		external_urls: SpotifyExternalURLs;
+		href: string;
+		id: string;
+		type: string;
+		uri: string;
+	};
+	is_local: boolean;
+	primary_color: string | null;
+	track: SpotifyPlaylistTrack;
+	video_thumbnail: {
+		url: string | null;
+	};
+};
+
+export type SpotifyPlaylistTrack = SpotifyTrackBase & {
+	album: SpotifyAlbumBase;
+	available_markets: string[];
+	episode: boolean;
+	external_ids: SpotifyExternalIDs;
+	popularity: number;
+	track: boolean;
 };
 
 // --------------------- TRACKS ---------------------
