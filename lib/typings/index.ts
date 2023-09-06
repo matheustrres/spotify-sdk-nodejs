@@ -170,6 +170,11 @@ export type SpotifyPlaylistTrack = SpotifyTrackBase & {
 	track: boolean;
 };
 
+export type SpotifyFeaturedPlaylists = {
+	message: string;
+	playlists: SpotifyResultWithItems<SpotifyPlaylist>;
+};
+
 // --------------------- TRACKS ---------------------
 
 export type SpotifyTrackBase = {
